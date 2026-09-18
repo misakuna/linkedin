@@ -1,0 +1,250 @@
+# config.yaml — every tunable value for David's LinkedIn Assistant.
+#
+# Rule: no magic values in code. If a number, a time, a phone
+# number, or a piece of tone guidance matters, it lives here.
+#
+# Secrets do NOT live here — they live in .env (see .env.example).
+
+client:
+  name: "David Whittington"
+  # All posting times, windows, and "today" calculations use this timezone.
+  timezone: "America/Los_Angeles"
+
+posting:
+  # OPEN DECISION: which two weekdays David posts, and the window.
+  # These are placeholders so the scheduler is testable, but confirm with David.
+  days:
+    - tuesday
+    - thursday
+  window:
+    start: "08:00"
+    end: "18:00"
+  # When the draft gets written and texted to David on a posting day. Early
+  # enough that he has all day to reply before the posting window closes.
+  prepare_at: "07:00"
+  # What David writes about. One is picked per posting day, rotating
+  # deterministically, and handed to the drafting model as the starting point.
+  # REVIEW WITH DAVID: these are guesses, and they are the difference between
+  # posts that sound like him and posts that don't.
+  themes:
+    - "a small moment with someone he coached, and what it taught him"
+    - "something he believes about building trust before business"
+    - "a habit that keeps him steady, and why it matters"
+    - "what he's learned about listening properly"
+    - "an honest look at something he got wrong once"
+    - "why he thinks health and wealth belong in the same conversation"
+
+approvals:
+  # OPEN DECISION: David's real number goes here before go-live.
+  # Format: E.164 (+1 then 10 digits for US).
+  phone_number: "+18056519665"
+  # How long an approval request stays valid before we stop waiting on it.
+  expires_after_hours: 12
+
+alerts:
+  # Texts David gets that are NOT approval requests. Approval texts are always
+  # sent — they are the whole point of the posting flow and are configured under
+  # `approvals` above. These are the "you might want to look at this" ones.
+  #
+  # Every text here costs money and, far more importantly, spends David's
+  # patience. A tool that buzzes his phone too often gets muted, and a muted
+  # tool is a cancelled engagement.
+
+  # Text him when new LinkedIn notifications land: "2 people are waiting".
+  on_new_items: true
+  # Never more than one of those within this many minutes, however many emails
+  # arrive. LinkedIn sends notifications in bursts; without this a busy morning
+  # is fifteen texts.
+  new_items_min_minutes: 240
+
+  # One summary text a day at this local time. Set to null to turn it off.
+  # This is the safety net: if he ignores everything else, he still gets one
+  # nudge a day telling him what is waiting.
+  daily_digest_at: "08:30"
+
+  # Never send an alert inside this window, in David's timezone. Approval
+  # requests obey it too — nothing this system does is worth a 3am buzz.
+  # An alert suppressed by quiet hours is dropped, not queued: by morning the
+  # daily digest says the same thing, more usefully.
+  quiet_hours:
+    start: "21:00"
+    end: "07:00"
+
+  # Where David's dashboard lives, included in alert texts so he can tap
+  # straight through. Leave blank to send texts with no link.
+  # Set this to the Railway URL once it exists.
+  dashboard_url: "https://linkedai-david-whittington.up.railway.app"
+
+voice:
+  # These notes are fed to the drafting model on every draft. They are the
+  # single biggest lever on whether drafts sound like David or like a robot.
+  # REVIEW WITH DAVID before go-live.
+  notes: |
+    David is a life coach and Tranont associate. He is old-school,
+    relationship-first, and writes the way he talks: warm, plain-spoken,
+    unhurried, and personal. He tells small true stories about people he has
+    helped rather than making claims about results. He is never salesy and
+    never hypes. He asks after people by name and remembers details about
+    their lives. Short sentences. Everyday words. First person.
+  # Hard "never do this" list. Violations here are worse than a bland draft.
+  never:
+    - "corporate or marketing jargon (leverage, synergy, unlock, game-changer)"
+    - "emoji, unless David used one first in that same thread"
+    - "hashtag stacking (more than one hashtag, ever)"
+    - "generic praise that would fit under any post ('Great insight!', 'So true!')"
+    - "claims about income, health results, or guarantees"
+    - "sounding like AI wrote it"
+  # Comments must reference something specific from the post they sit under.
+  # A generic comment under David's name is the worst case this can produce.
+  comment_must_reference_post: true
+
+integrations:
+  # "mock" runs entirely offline against fixtures — no network, no credentials.
+  # "live" uses the real API and requires the matching keys in .env.
+  # Everything ships as "mock" until real credentials exist.
+  #
+  # The AI providers are NOT here — drafting and chat each name their own
+  # provider below, so they can run on different models.
+  gmail: live
+  buffer: mock
+  sms: mock
+
+inbox:
+  # Gmail search used to find LinkedIn's notification emails. Read-only.
+  #
+  # This runs against the developer's Workspace mailbox, NOT David's. David keeps one
+  # Gmail filter that forwards a *copy* of anything from linkedin.com to the
+  # alias davidlinkedin@example.com. His originals stay in his own
+  # inbox, unchanged; forwarding copies, it does not divert. A filter on the
+  # receiving side then labels those "davids-linkedin" and skips the inbox.
+  #
+  # ⚠️  MATCH THE LABEL. NEVER "from:(linkedin.com)".
+  # The alias delivers into that same mailbox, which receives its own LinkedIn
+  # notifications too. A sender-based query cannot tell the two accounts apart,
+  # so those personal connections would surface on David's dashboard as people
+  # waiting on him — silently, with no error anywhere to explain it. The label
+  # is applied only to mail delivered to the alias, which is what makes this
+  # query unambiguous.
+  #
+  # The Gmail label must be named exactly "davids-linkedin". Gmail search
+  # lowercases and hyphenates label names, so "David's LinkedIn" would NOT
+  # match this query.
+  #
+  # If this ever moves to a dedicated Workspace seat — its own mailbox, with
+  # nothing else arriving — "from:(linkedin.com) newer_than:7d" is correct
+  # again, and the label filter becomes unnecessary.
+  gmail_query: "label:davids-linkedin newer_than:7d"
+  # Never pull more than this in one poll — keeps API use and cost predictable.
+  max_messages_per_poll: 50
+  # How often to check for new LinkedIn notification emails.
+  poll_minutes: 15
+
+drafting:
+  # Which model writes David's posts, replies, and comments.
+  #   mock   — placeholder text, no network, no key needed
+  #   claude — needs ANTHROPIC_API_KEY
+  #   gemini — needs GEMINI_API_KEY
+  provider: gemini
+  # Model name for the chosen provider. Swap when you swap provider:
+  #   claude -> claude-opus-5      gemini -> gemini-3.5-flash
+  #
+  # Model names go stale, and free-tier quotas are per MODEL per DAY.
+  #
+  #   gemini-2.5-flash  404s, "no longer available"  (retired under us)
+  #   gemini-3.6-flash  works, but free tier allows only 20 requests/day
+  #   gemini-3.5-flash  works, and drafts read the closest to David
+  #
+  # 20/day is not enough: a quiet week produced 12 cards in one morning, and
+  # chat spends from the same allowance. THE REAL FIX IS BILLING — around 31
+  # cents a month at this volume removes the cap entirely. Until then, expect
+  # cards to appear with no suggested reply once the day's quota is gone; the
+  # backfill in inbox/service.py picks them up after it resets.
+  #
+  # If drafts stop appearing, check the log for 429 before assuming the code
+  # broke, and run scripts/check_gemini.py.
+  model: "gemini-3.5-flash"
+  # Room for the model to think plus write. A draft is a few sentences; the
+  # headroom is for reasoning, which some models do by default.
+  max_tokens: 2000
+  # low | medium | high — how hard the model works before answering.
+  # Claude only; ignored by Gemini. Raise it if drafts sound generic.
+  effort: medium
+  # Pause between drafting calls inside one inbox poll.
+  #
+  # A quiet week still arrives all at once: 17 emails produced 12 cards, so 11
+  # drafting calls fired within seconds. Gemini's free tier caps requests per
+  # MINUTE, so the burst got most of them rejected — only 4 of the 12 cards got
+  # a draft, and the rest showed David "we couldn't write a suggestion" for no
+  # reason he could see. Spacing them keeps a poll inside the limit.
+  #
+  # The poll is a background job, so taking a minute costs nothing. Set to 0 on
+  # a paid tier with headroom, which removes the need for this entirely.
+  seconds_between_calls: 7
+  # Most drafting calls one poll will make. Cards are always created; only the
+  # suggested replies are capped. Anything missed is filled in by the next poll,
+  # so a quiet week that arrives all at once spreads over an hour instead of
+  # making one poll outlast its own 15-minute interval.
+  max_drafts_per_poll: 6
+  # Longest a draft may be. David's replies are short and personal; a wall of
+  # text under his name reads as automated no matter how good the words are.
+  max_words: 90
+  # When LinkedIn gives us no context to reply to — which is ALWAYS the case
+  # for direct messages, since LinkedIn's notification emails never include the
+  # message text — do we draft anyway?
+  #
+  # false (default): no draft. The card says "Ephraim messaged you" with an
+  #   [Open in LinkedIn] button, and David reads and replies himself.
+  # true: draft a warm generic opener from the person's name and headline
+  #   alone.
+  #
+  # Kept false because a generic reply appearing under David's name is the
+  # single worst outcome this system can produce.
+  # OPEN DECISION — see notes in inbox/drafting.py.
+  draft_blind_replies: false
+
+chat:
+  # Which model answers David's questions.
+  #   mock   — canned replies, no network, no key needed
+  #   claude — reuses ANTHROPIC_API_KEY, the same key the drafting uses
+  #   gemini — needs GEMINI_API_KEY
+  provider: gemini
+  # Model name for the chosen provider. Swap when you swap provider:
+  #   claude -> claude-opus-5      gemini -> gemini-3.5-flash
+  #
+  # Model names go stale, and free-tier quotas are per MODEL per DAY.
+  #
+  #   gemini-2.5-flash  404s, "no longer available"  (retired under us)
+  #   gemini-3.6-flash  works, but free tier allows only 20 requests/day
+  #   gemini-3.5-flash  works, and drafts read the closest to David
+  #
+  # 20/day is not enough: a quiet week produced 12 cards in one morning, and
+  # chat spends from the same allowance. The real fix is billing, around 31
+  # cents a month at this volume removes the cap entirely. Expect
+  # cards to appear with no suggested reply once the day's quota is gone; the
+  # backfill in inbox/service.py picks them up after it resets.
+  #
+  # If drafts stop appearing, check the log for 429 before assuming the code
+  # broke, and run scripts/check_gemini.py.
+  model: "gemini-3.5-flash"
+  max_tokens: 1500
+  # How much of the conversation the model sees, and the screen shows.
+  history_messages: 40
+
+storage:
+  # Overridable with DATABASE_PATH in .env. On Railway/Render this points at
+  # the mounted persistent volume (e.g. /data/david.db).
+  database_path: "data/david.db"
+
+dashboard:
+  # The single-file dashboard, relative to the repo root. It runs standalone
+  # from disk with demo data; served from here it talks to the real database.
+  html_path: "web/index.html"
+  # Shown at the top of every screen so David always knows who to text.
+  support_contact: "support"
+  # How long a PIN login lasts before he has to type it again. He is on his
+  # phone daily; long sessions beat security theater for a single-user app.
+  session_days: 30
+
+# Flip to true once the OPEN DECISIONS are settled with me.
+# While false, the app logs a plain-language reminder at every boot.
+open_decisions_resolved: false

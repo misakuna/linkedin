@@ -1,0 +1,15 @@
+-r requirements.txt
+
+pytest~=8.3
+
+# Renders the dashboard HTML locally so its screens can be screenshotted and
+# eyeballed during development.
+#
+# IMPORTANT — this is a DEV dependency and must never move into
+# requirements.txt. It is not installed into the deployed image (the Dockerfile
+# installs requirements.txt only), and it is never pointed at linkedin.com.
+# Browser-automating LinkedIn is forbidden (README.md); rendering our own
+# static file is a different activity, but keeping this out of the shipped
+# service means the deployed dependency list stays consistent with the
+# compliance story a client would audit.
+playwright~=1.49

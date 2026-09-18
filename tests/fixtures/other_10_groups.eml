@@ -1,0 +1,637 @@
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_104760414_1295490322.1784593365059"
+Delivered-To: joshua@example.com
+Received: by 2002:a05:7108:5384:b0:580:107d:e26d with SMTP id e4csp667942gdv;
+        Mon, 20 Jul 2026 17:22:50 -0700 (PDT)
+Received: from maile-de.linkedin.com (maile-de.linkedin.com. [108.174.6.205])
+        by mx.google.com with ESMTPS id
+ 41be03b00d2f7-cb5174ced99si20949833a12.38.2026.07.20.17.22.49        for
+ <joshua@example.com>        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384
+ bits=256/256);        Mon, 20 Jul 2026 17:22:49 -0700 (PDT)
+X-Received: by 2002:a05:6a21:a8b:b0:3c3:9a32:70ac with SMTP id
+ adf61e73a8af0-3c3ad8ecd1fmr17702581637.48.1784593369892;        Mon, 20 Jul
+ 2026 17:22:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784593369; cv=none;        d=google.com;
+ s=arc-20260327;       
+ b=JeHzs+j7DskL3ymQ4aC7McEo0PToNYjV8EY4tFJ5vON9RAcUHSlWlYsh70lxqP/hP4        
+ 22jV13JFmpZHiUbgGEziaRG+1kW06YeSr5N3SoYzn/JMWy41gsUhpjXLZovMjK7Ur6Uo        
+ z8bBmcz8u2X8L6Q94pQzkB+ElBBs7ofBEc6wfR1ZI0OKh+kKvcCY3elIYtQHza2F9cnU        
+ DFlkOJeJPO/OaCNNZ8FjtVVnCXcYjAg2U59wN+5q0dh5i2ep0xsYky75B2IDp1LqNcWy        
+ n6I/a66C//TksYaY02qeC4YN9XSZDanXr+ojWjpyS9avYGWlH2N5oEwaJkp04uzqO8mN        
+ z/rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327;        h=require-recipient-valid-since:list-unsubscribe-post
+         :list-unsubscribe:to:mime-version:subject:message-id:from:date
+         :dkim-signature:dkim-signature;       
+ bh=KuNqiXK/Xbr5XSf+mWtCSt2wg6s4nfwTKWEGitRad0U=;       
+ fh=rhZ1scnAVIy12l1pJmMNdhELGJrxjfCJ4tXQjUO0MiE=;       
+ b=PCvJMo0fpxVvRWtA4n1P7yTfXsnXjIBDR1AneFh/2pDmsTBSOiIAYGyQevyOoGvU6M        
+ /zvnVpTLk5vuFU/Gw5d/HGwXJcdiqFhE/ylM1wojvcPRyaRuYjsousB72W/4rSvqOfGO        
+ gwSIn7XNcInYqrEObZ2SHnfEWIVP8IgSLdzr5Y79lavEvk041RySk3bKgDxvg80DzNh1        
+ 6qL3YmX1lxXW0ciAMv3fL62978lgbK1fHqqd5e8Qssxzn11JUHMzUZEOIR6gATwm8/uw        
+ n75ity7Erzb4Ccz/pjNHp9zcOOAflZH05FZh1bmsO8noUfwPX+REBsWZ52uktexXOcVE        
+ 7XLw==;        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;       dkim=pass
+ header.i=@maile.linkedin.com header.s=d2048-202308-0e header.b=a2e26vWw;
+       dkim=pass header.i=@linkedin.com header.s=d2048-202308-00
+ header.b=GnEu8eQ0;       spf=pass (google.com: domain of
+ s-REDACTED@bounce.linkedin.com designates 108.174.6.205 as permitted sender)
+ smtp.mailfrom=s-REDACTED@bounce.linkedin.com;       dmarc=pass (p=REJECT
+ sp=REJECT dis=NONE) header.from=linkedin.com
+Return-Path: <s-REDACTED@bounce.linkedin.com>
+Received-SPF: pass (google.com: domain of s-REDACTED@bounce.linkedin.com
+ designates 108.174.6.205 as permitted sender) client-ip=108.174.6.205;
+Authentication-Results: mx.google.com;       dkim=pass
+ header.i=@maile.linkedin.com header.s=d2048-202308-0e header.b=a2e26vWw;
+       dkim=pass header.i=@linkedin.com header.s=d2048-202308-00
+ header.b=GnEu8eQ0;       spf=pass (google.com: domain of
+ s-REDACTED@bounce.linkedin.com designates 108.174.6.205 as permitted sender)
+ smtp.mailfrom=s-REDACTED@bounce.linkedin.com;       dmarc=pass (p=REJECT
+ sp=REJECT dis=NONE) header.from=linkedin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maile.linkedin.com;
+	s=d2048-202308-0e; t=1784593365;
+	bh=KuNqiXK/Xbr5XSf+mWtCSt2wg6s4nfwTKWEGitRad0U=;
+	h=Date:From:Subject:MIME-Version:Content-Type:To:X-LinkedIn-Class:	
+ X-LinkedIn-Template:X-LinkedIn-fbl;
+	b=a2e26vWwOF/JJJG/L1G8KeAKeL0rY91KnuqXvoxe+7QLagtNvwlQgmdSHhNlw6X41	
+ v2C1EjTbKhSvcZPClH/d+02R5ptMFYL9IXpQUIQHziBC7xKSWoOnVnPpflfS4XIPhE	
+ iH/pog9+I/3+j2wcwKpc7GJTE70Md5t+p7cbeBJVcPN1JbepCsc+EUwNTfoj+ns4Tc	
+ yBMnZFUFcysYFCHBehJz2U0feGGK/jnvX9Q0C4KZpeZdqcdmu1XeEy+qQBNlSp6W9v	
+ PTPVCNzBXHSc6fFLoZXExVzFpGesfMtLaNWdhjqAKtdHR/eccgR/IKPQC+Tiz24Sqo	
+ VigSvJRSnkPEA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linkedin.com;
+	s=d2048-202308-00; t=1784593365;
+	bh=KuNqiXK/Xbr5XSf+mWtCSt2wg6s4nfwTKWEGitRad0U=;
+	h=Date:From:Subject:MIME-Version:Content-Type:To:X-LinkedIn-Class:	
+ X-LinkedIn-Template:X-LinkedIn-fbl;
+	b=GnEu8eQ0YSnOjnrCbMoIfgNapFGh4fkvkIJvi9v/47XC8NBtq2/eNxPgDbI6xCzTE	
+ dGfI2Ro8Www3eGYeHUNXKWPQfPhwJcRKpwDv6KpWV10fvZIYZGis3g93o8dDbv7aL1	
+ dpWIS7ej2ISBGFKfnqAesdVVL/ErNYQ2ixE71mHabDn6RNaIQCQzdEGIu0sskD8zHn	
+ aThIddtkDBOiTqEuPmngy+O7s93GThdnT/e2Op2awBglwELcZXkSLhepWs9pBGZzTa	
+ SR1D8DRT5dBSF7Kr6QZP52MSKaLx9dAOfZHqc/f5AFS8q8vpWAtRkbL91x/lZ1Z2A0	
+ vLptqEKdGmQow==
+Date: Tue, 21 Jul 2026 00:22:45 +0000
+From: LinkedIn <groups-noreply@linkedin.com>
+Message-ID:
+ <1083175986.104760416.1784593365062@ltx1-app83698.prod.linkedin.com>
+Subject: =?utf-8?q?Don=E2=80=99t?= miss conversations in Research,
+ Methodology, and Statistics in Higher Education
+To: Joshua Hopkins <joshua@example.com>
+X-LinkedIn-Class: EMAIL-DEFAULT
+X-LinkedIn-Template: email_groups_recommended_by_admin_01
+X-LinkedIn-fbl: =?utf-8?q?m2-aszzqja6lqsa03wwuw8metmeqy5ef1ipp8o52f9l7zrnsh6?=
+ =?utf-8?q?5vpe0qtb20n3idhyyhr34fwy5q2w8smfoc1iukrsclel1i162wkq4ir?=
+X-LinkedIn-Id: h4yxlg-mrtwt7em-d4
+List-Unsubscribe: =?utf-8?q?=3Chttps=3A//www=2Elinkedin=2Ecom/mysettings-api?=
+ =?utf-8?q?/settingsApiEmailSubscriptionPost=3Flipi=3Durn=253Ali=253Apage=25?=
+ =?utf-8?q?3Aemail=5Femail=5Fgroups=5Frecommended=5Fby=5Fadmin=5F01=253BAUQC?=
+ =?utf-8?q?77w0QpGbBqlNSS3u=252Bg=253D=253D=26midToken=REDACTED
+ =?utf-8?q?=3DREDACTED=26trk=3Deml-email=5Fgroups=5Frecommended=5Fby=5Fadmin?=
+ =?utf-8?q?=5F01-oneClickUnsub-0-oneClickUnsub=26trkEmail=3Deml-email=5Fgrou?=
+ =?utf-8?q?ps=5Frecommended=5Fby=5Fadmin=5F01-oneClickUnsub-0-oneClickUnsub-?=
+ =?utf-8?q?null-h4yxlg=7Emrtwt7em=7Ed4-null-null=26eid=3Dh4yxlg-mrtwt7em-d4?=
+ =?utf-8?q?=26loid=REDACTED
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Require-Recipient-Valid-Since:
+ joshua@example.com; Thu, 28 May 2026 02:10:45 +0000
+
+------=_Part_104760414_1295490322.1784593365059
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Don=E2=80=99t miss conversations in Research, Methodology, and Statistics in =
+Higher Education
+
+.....................................Research, Methodology, and Statistics in=
+ Higher Education
+The International Higher Education Teaching and Learning Association (HETL.OR=
+G) is a non-profit organization and a global online community of practice who=
+se vision is to transform teaching and learning worldwide. Follow our page at=
+ hhttps://www.linkedin.com/company/international-hetl-association/?viewAsMemb=
+er=3Dtrue.
+
+HETL group members represent all disciplines, functions, and levels within ba=
+sic and higher education. HETL is open to education professionals from all in=
+stitutional types and missions.  As such, HETL members represent a broad cros=
+s-section of professionals in basic and higher education globally. This diver=
+sity allows HETL to create a global perspective on teaching and learning.
+
+VISION, MISSION, VALUES
+Vision: HETL's long-term vision is to improve educational outcomes in higher =
+education by creating new knowledge and advancing the scholarship and practic=
+e of teaching and learning.
+
+Mission: to bring that vision to reality, the current mission of HETL is to d=
+evelop a global community of higher education professionals who come together=
+ to share their knowledge and expertise in teaching, learning, and research.
+
+Values: to effectively fulfill that mission, HETL adheres to the values of ac=
+ademic integrity,  collegiality, and diversity.
+
+PRIVACY & DISCLAIMER POLICY
+The group is for educational and informational purposes only. The content pos=
+ted on the group by members, including links to external sites, does not repr=
+esent an endorsement of that content by the group owner, managers, moderators=
+, and members. All content should adhere to the LinkedIn User Agreement, Priv=
+acy Policy, and Copyright Policy as well as the group rules. All content on t=
+he group is provided without warranty of any kind. The owner, managers, moder=
+ators, and members are not liable for a member=E2=80=99s use of the content p=
+osted on the group and members agree to use the content at their own discreti=
+on.
+View all posts
+  https://www.linkedin.com/comm/groups/4292855?lipi=3Durn%3Ali%3Apage%3Aemail=
+_email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&midTok=
+en=3DREDACTED&midSig=REDACTED&trk=3Deml-email_groups_recommended_by_admin_0=
+1-content_footer-0-view_all_posts&trkEmail=3Deml-email_groups_recommended_by_=
+admin_01-content_footer-0-view_all_posts-null-h4yxlg~mrtwt7em~d4-null-null&ei=
+d=3Dh4yxlg-mrtwt7em-d4
+Discover inspiring conversations happening in your group
+Manage group settings or leave this groupGo to group
+  https://www.linkedin.com/comm/groups/4292855?lipi=3Durn%3Ali%3Apage%3Aemail=
+_email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&midTok=
+en=3DREDACTED&midSig=REDACTED&trk=3Deml-email_groups_recommended_by_admin_0=
+1-content_footer-0-footer_leave_group_link&trkEmail=3Deml-email_groups_recomm=
+ended_by_admin_01-content_footer-0-footer_leave_group_link-null-h4yxlg~mrtwt7=
+em~d4-null-null&eid=3Dh4yxlg-mrtwt7em-d4
+
+     =20
+
+----------------------------------------
+
+This email was intended for Joshua Hopkins (CAIO | Forensic Intelligence for =
+Capital Infrastructure | AI Systems Architect for Project Controls)
+Learn why we included this: https://www.linkedin.com/help/linkedin/answer/478=
+8?lang=3Den&lipi=3Durn%3Ali%3Apage%3Aemail_email_groups_recommended_by_admin_=
+01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&midToken=REDACTED&midSig=REDACTED&trk=
+=3Deml-email_groups_recommended_by_admin_01-SecurityHelp-0-textfooterglimmer&=
+trkEmail=3Deml-email_groups_recommended_by_admin_01-SecurityHelp-0-textfooter=
+glimmer-null-h4yxlg~mrtwt7em~d4-null-null&eid=3Dh4yxlg-mrtwt7em-d4
+You are receiving LinkedIn notification emails.
+
+
+Unsubscribe: https://www.linkedin.com/comm/mypreferences/u/emailunsub?action=
+=3DupdateEmailSubscription&lipi=3Durn%3Ali%3Apage%3Aemail_email_groups_recomm=
+ended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&midToken=REDACTED&midSig=
+=3DREDACTED&trk=3Deml-email_groups_recommended_by_admin_01-unsubscribe-0-text=
+footerglimmer&trkEmail=3Deml-email_groups_recommended_by_admin_01-unsubscribe=
+-0-textfooterglimmer-null-h4yxlg~mrtwt7em~d4-null-null&eid=3Dh4yxlg-mrtwt7em-=
+d4&loid=REDACTED
+Help: https://www.linkedin.com/help/linkedin/answer/67?lang=3Den&lipi=3Durn%3=
+Ali%3Apage%3Aemail_email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3=
+u%2Bg%3D%3D&midToken=REDACTED&midSig=REDACTED&trk=3Deml-email_groups_reco=
+mmended_by_admin_01-help-0-textfooterglimmer&trkEmail=3Deml-email_groups_reco=
+mmended_by_admin_01-help-0-textfooterglimmer-null-h4yxlg~mrtwt7em~d4-null-nul=
+l&eid=3Dh4yxlg-mrtwt7em-d4
+
+=C2=A9 2026 LinkedIn Corporation, 1zwnj000 West Maude Avenue, Sunnyvale, CA 9=
+4085.
+LinkedIn and the LinkedIn logo are registered trademarks of LinkedIn.
+
+------=_Part_104760414_1295490322.1784593365059
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en"> <he=
+ad> <meta http-equiv=3D"Content-Type" content=3D"text/html;charset=3Dutf-8"> =
+<meta name=3D"HandheldFriendly" content=3D"true"> <meta name=3D"viewport" con=
+tent=3D"width=3Ddevice-width; initial-scale=3D0.666667; user-scalable=3D0"> <=
+meta name=3D"viewport" content=3D"width=3Ddevice-width"> <title></title> <sty=
+le>
+              @media (max-width: 512px) { .mercado-container { width: 100% !i=
+mportant; } }
+            </style> <style>
+            @media (max-width: 480px) { .inline-button, .inline-button table =
+{ display: none !important; }
+            .full-width-button, .full-width-button table { display: table !im=
+portant; } } @media (max-width: 320px) {
+            .games-notification-badge { display: none !important; } }
+          </style> <style>body {font-family: -apple-system, system-ui, BlinkM=
+acSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+            'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid San=
+s', 'Apple Color Emoji', 'Segoe UI Emoji',
+            'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, =
+Arial, sans-serif;}</style> <!--[if mso]><style type=3D"text/css"> </style><!=
+[endif]--> <!--[if IE]><style type=3D"text/css"> </style><![endif]--> </head>=
+ <body dir=3D"ltr" class=3D"font-sans bg-color-background-canvas w-full m-0 p=
+-0 pt-1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;=
+ margin: 0px; width: 100%; background-color: #f3f2f0; padding: 0px; padding-t=
+op: 8px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI=
+', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cant=
+arell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji',=
+ 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;"> <div cla=
+ss=3D"h-0 opacity-0 text-transparent invisible overflow-hidden w-0 max-h-[0]"=
+ style=3D"visibility: hidden; height: 0px; max-height: 0; width: 0px; overflo=
+w: hidden; opacity: 0; mso-hide: all;" data-email-preheader=3D"true">View rec=
+ommended posts from Research, Methodology, and Statistics in Higher Education=
+</div> <div class=3D"h-0 opacity-0 text-transparent invisible overflow-hidden=
+ w-0 max-h-[0]" style=3D"visibility: hidden; height: 0px; max-height: 0; widt=
+h: 0px; overflow: hidden; opacity: 0; mso-hide: all;"> =CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0 </div> <table role=3D"presentation" valign=3D"top" b=
+order=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"512" align=3D"center=
+" class=3D"mercado-container w-[512px] max-w-[512px] mx-auto my-0 p-0 " style=
+=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lsp=
+ace: 0pt; mso-table-rspace: 0pt; margin-left: auto; margin-right: auto; margi=
+n-top: 0px; margin-bottom: 0px; width: 512px; max-width: 512px; padding: 0px;=
+"> <tbody> <tr> <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-ad=
+just: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <table role=3D"pr=
+esentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" w=
+idth=3D"100%" class=3D"bg-color-background-container " style=3D"-webkit-text-=
+size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tab=
+le-rspace: 0pt; background-color: #ffffff;"> <tbody> <tr> <td class=3D"text-c=
+enter p-3" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100=
+%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 24px; text-align: c=
+enter;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"min-w-full" style=3D"-webkit=
+-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt; min-width: 100%;"> <tbody> <tr> <td align=3D"left" vali=
+gn=3D"middle" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: =
+100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https://www.=
+linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_email_groups_recommend=
+ed_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED&amp;m=
+idSig=3DREDACTED&amp;trk=3Deml-email_groups_recommended_by_admin_01-header-0-=
+home_glimmer&amp;trkEmail=3Deml-email_groups_recommended_by_admin_01-header-0=
+-home_glimmer-null-h4yxlg~mrtwt7em~d4-null-null&amp;eid=3Dh4yxlg-mrtwt7em-d4"=
+ target=3D"_blank" class=3D"w-[84px]" style=3D"color: #0a66c2; cursor: pointe=
+r; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 10=
+0%; -ms-text-size-adjust: 100%; width: 84px;"> <img alt=3D"LinkedIn" src=3D"h=
+ttps://static.licdn.com/aero-v1/sc/h/9ehe6n39fa07dc5edzv0rla4e" class=3D"h-[2=
+1px] w-[84px]" style=3D"outline: none; text-decoration: none; -ms-interpolati=
+on-mode: bicubic; height: 21px; width: 84px;" width=3D"84" height=3D"21"> </a=
+> </td> <td valign=3D"middle" align=3D"right" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=
+=3D"0" cellpadding=3D"0" width=3D"100%" data-test-header-profile style=3D"-we=
+bkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0p=
+t; mso-table-rspace: 0pt;"> <tbody> <tr> <td align=3D"right" valign=3D"middle=
+" class=3D"w-[32px]" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-a=
+djust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 32px;" widt=
+h=3D"32"> <img alt=3D"Joshua Hopkins" src=3D"https://media.licdn.com/dms/imag=
+e/v2/D5603AQFiKmmQjwkeDg/profile-displayphoto-shrink_200_200/profile-displayp=
+hoto-shrink_200_200/0/1728351814107?e=3D2147483647&amp;v=3Dbeta&amp;t=3Dwwj18=
+gh1urzeV2dHDrqcepo5YjAR0IG2qOibzTXjP-E" class=3D"rounded-[100%] w-[32px] h-[3=
+2px]" style=3D"outline: none; text-decoration: none; -ms-interpolation-mode: =
+bicubic; height: 32px; width: 32px; border-radius: 100%;" width=3D"32" height=
+=3D"32"> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </=
+tr> <tr> <td class=3D"px-3 pb-3" style=3D"-webkit-text-size-adjust: 100%; -ms=
+-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; paddin=
+g-left: 24px; padding-right: 24px; padding-bottom: 24px;"> <div> <table role=
+=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-=
+adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <t=
+d class=3D"pt-2 pb-2" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-=
+adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 1=
+6px; padding-top: 16px;"> <h2 class=3D"heading-large text-color-text" dir=3D"=
+ltr" style=3D"margin: 0; font-weight: 500; color: rgba(0, 0, 0, 0.9);"> View =
+recommended posts from Research, Methodology, and Statistics in Higher Educat=
+ion </h2> </td> </tr> </tbody> </table> <a href=3D"https://www.linkedin.com/c=
+omm/feed/update/urn:li:groupPost:4292855-7483150531213963264?lipi=3Durn%3Ali%=
+3Apage%3Aemail_email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2B=
+g%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_gro=
+ups_recommended_by_admin_01-groups-0-b~view_single_post&amp;trkEmail=3Deml-em=
+ail_groups_recommended_by_admin_01-groups-0-b~view_single_post-null-h4yxlg~mr=
+twt7em~d4-null-null&amp;eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" style=3D"=
+color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none=
+; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <table role=
+=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-=
+adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <t=
+d class=3D"py-2" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 16px; pad=
+ding-bottom: 16px;"> <table role=3D"presentation" valign=3D"top" border=3D"0"=
+ cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-siz=
+e-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-=
+rspace: 0pt;"> <tbody> <tr> <td class=3D"border-1 border-solid border-system-=
+gray-30 rounded-md overflow-hidden" style=3D"-webkit-text-size-adjust: 100%; =
+-ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; ove=
+rflow: hidden; border-radius: 8px; border-width: 1px; border-style: solid; bo=
+rder-color: #e6e6e6;"> <table role=3D"presentation" valign=3D"top" border=3D"=
+0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-s=
+ize-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tabl=
+e-rspace: 0pt;"> <tbody> <tr> <td class=3D"pt-2 px-2" data-test-id=3D"network=
+-post-actor-card" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adju=
+st: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 16px; p=
+adding-right: 16px; padding-top: 16px;"> <a href=3D"https://www.linkedin.com/=
+comm/feed/update/urn:li:activity:7483150531876765697?lipi=3Durn%3Ali%3Apage%3=
+Aemail_email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&=
+amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_reco=
+mmended_by_admin_01-network_post-0-actor_card&amp;trkEmail=3Deml-email_groups=
+_recommended_by_admin_01-network_post-0-actor_card-null-h4yxlg~mrtwt7em~d4-nu=
+ll-null&amp;eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" class=3D"block" data-=
+test-id=3D"network-post-link" style=3D"color: #0a66c2; cursor: pointer; text-=
+decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;=
+ display: block;"> <table role=3D"presentation" valign=3D"top" border=3D"0" c=
+ellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-size-=
+adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rs=
+pace: 0pt;"> <tbody> <tr data-test-id=3D"actor-card-v2"> <td class=3D"w-6" st=
+yle=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-=
+lspace: 0pt; mso-table-rspace: 0pt; width: 48px;" width=3D"48"> <img class=3D=
+"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 r=
+ounded-full w-6 h-6" src=3D"https://media.licdn.com/dms/image/v2/D4E03AQGA5m3=
+MxvlflA/profile-displayphoto-scale_400_400/B4EZupMfXPGcAg-/0/1768070182782?e=
+=3D2147483647&amp;v=3Dbeta&amp;t=3D4N0wJAnLIF_Ek1WY-LKhP1M5EnDtetthEaE_hEP3AI=
+M" alt=3D"Patrick Blessinger" style=3D"outline: none; text-decoration: none; =
+-ms-interpolation-mode: bicubic; position: relative; display: inline-block; h=
+eight: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; c=
+lip-path: circle(50%);" width=3D"48" height=3D"48"> </td> <td class=3D"pl-1" =
+style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-tabl=
+e-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 8px;"> <table role=3D"pre=
+sentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" wi=
+dth=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 1=
+00%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=
+=3D"font-bold text-md leading-regular text-system-gray-90" style=3D"-webkit-t=
+ext-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso=
+-table-rspace: 0pt; font-size: 16px; font-weight: 600; line-height: 1.25; col=
+or: #282828;"> Patrick Blessinger </td> </tr> <tr data-test-id=3D"actor-card-=
+headline"> <td class=3D"text-sm leading-[16px] text-color-text-solid-secondar=
+y" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-t=
+able-lspace: 0pt; mso-table-rspace: 0pt; font-size: 14px; line-height: 16px; =
+color: #666666;"> HETL Scientist, JARHE Editor, SUNY Lecturer. NYSED=E2=80=A6=
+ </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> </td> </tr>=
+ <tr> <td class=3D"px-2 pt-2 text-md leading-regular text-system-gray-90" col=
+span=3D"1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100=
+%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 16px; padding-=
+right: 16px; padding-top: 16px; font-size: 16px; line-height: 1.25; color: #2=
+82828;"> <span data-test-id=3D"truncated-message-text"> Designing curriculum =
+as an ecosystem is an important step towards a better educational experience.=
+ By=E2=80=A6 </span> <a href=3D"https://www.linkedin.com/comm/feed/update/urn=
+:li:activity:7483150531876765697?lipi=3Durn%3Ali%3Apage%3Aemail_email_groups_=
+recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED
+TED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_admin_01-=
+truncated~share~message-0-see~more&amp;trkEmail=3Deml-email_groups_recommende=
+d_by_admin_01-truncated~share~message-0-see~more-null-h4yxlg~mrtwt7em~d4-null=
+-null&amp;eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" style=3D"color: #0a66c2=
+; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text=
+-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <span data-test-id=3D"trunc=
+ated-message-see-more"> see more </span> </a> </td> </tr> <tr class=3D"aspect=
+-video bg-cover bg-center" style=3D"aspect-ratio: 16 / 9; background-size: co=
+ver; background-position: center;"> <td data-test-id=3D"network-post-update-c=
+ard" colspan=3D"1" class=3D"pt-2" style=3D"-webkit-text-size-adjust: 100%; -m=
+s-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; paddi=
+ng-top: 16px;"> <a href=3D"https://www.linkedin.com/comm/feed/update/urn:li:a=
+ctivity:7483150531876765697?lipi=3Durn%3Ali%3Apage%3Aemail_email_groups_recom=
+mended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED&a=
+mp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_admin_01-updat=
+e~card-0-thumbnail~overlay~image&amp;trkEmail=3Deml-email_groups_recommended_=
+by_admin_01-update~card-0-thumbnail~overlay~image-null-h4yxlg~mrtwt7em~d4-nul=
+l-null&amp;eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" aria-label=3D"Read mor=
+e" class=3D"block w-full h-full" style=3D"color: #0a66c2; cursor: pointer; te=
+xt-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 10=
+0%; display: block; height: 100%; width: 100%;"> <table role=3D"presentation"=
+ valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100=
+%" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-t=
+able-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"bg-syste=
+m-gray-10 rounded-md" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-=
+adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 8p=
+x; background-color: #f7f7f7;"> <table role=3D"presentation" valign=3D"top" b=
+order=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webk=
+it-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"bg-center bg-no-repeat h-=
+[252px] w-[462px] max-w-full bg-system-gray-40" align=3D"center" data-test-id=
+=3D"update-card-container" style=3D"-webkit-text-size-adjust: 100%; -ms-text-=
+size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; height: 252p=
+x; width: 462px; max-width: 100%; background-color: #cfcfcf; background-posit=
+ion: center; background-repeat: no-repeat; background-size: cover; background=
+-image: url(&quot;https://media.licdn.com/dms/image/v2/D4E12AQEGuBTOVSC6pg/ar=
+ticle-cover_image-shrink_720_1280/B4EZ9l7uBFHoAU-/0/1784121582423?e=3D1785974=
+400&amp;v=3Dbeta&amp;t=3DvR7z-MUftRpK9m8Ba6fE-aFV5l4Y92SC-nNzeVpeMfs&quot;);"=
+ width=3D"462" height=3D"252"> <table role=3D"presentation" valign=3D"top" bo=
+rder=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"h-full=
+" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-ta=
+ble-lspace: 0pt; mso-table-rspace: 0pt; height: 100%;" height=3D"100%"> <tbod=
+y> <tr> <td align=3D"center" class=3D"overflow-hidden" style=3D"-webkit-text-=
+size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tab=
+le-rspace: 0pt; overflow: hidden;"> <img class=3D"w-[448px] h-[252px] hidden =
+" src=3D"https://media.licdn.com/dms/image/v2/D4E12AQEGuBTOVSC6pg/article-cov=
+er_image-shrink_720_1280/B4EZ9l7uBFHoAU-/0/1784121582423?e=3D1785974400&amp;v=
+=3Dbeta&amp;t=3DvR7z-MUftRpK9m8Ba6fE-aFV5l4Y92SC-nNzeVpeMfs" alt=3D"View imag=
+e" style=3D"outline: none; text-decoration: none; -ms-interpolation-mode: bic=
+ubic; display: none; height: 252px; width: 448px;" width=3D"448" height=3D"25=
+2"> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class=3D"p-2" style=3D=
+"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt; padding: 16px;"> <p class=3D"text-md font-bold =
+leading-regular text-black" style=3D"margin: 0; font-size: 16px; font-weight:=
+ 600; line-height: 1.25; color: #000000;"> Curricula as an ecosystem </p> </t=
+d> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> </td> </tr> <tr=
+ data-test-id=3D"network-post-social-metadata"> <td class=3D"px-2 " colspan=
+=3D"1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; m=
+so-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 16px; padding-righ=
+t: 16px;"> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> =
+</tr> </tbody> </table> </a> <table role=3D"presentation" valign=3D"top" bord=
+er=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"py-2" st=
+yle=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-=
+lspace: 0pt; mso-table-rspace: 0pt; padding-top: 16px; padding-bottom: 16px;"=
+> <tbody> <tr> <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adj=
+ust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https:/=
+/www.linkedin.com/comm/groups/4292855?lipi=3Durn%3Ali%3Apage%3Aemail_email_gr=
+oups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED
+REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_admi=
+n_01-groups-0-b~view_group&amp;trkEmail=3Deml-email_groups_recommended_by_adm=
+in_01-groups-0-b~view_group-null-h4yxlg~mrtwt7em~d4-null-null&amp;eid=3Dh4yxl=
+g-mrtwt7em-d4" target=3D"_blank" style=3D"color: #0a66c2; cursor: pointer; di=
+splay: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%;"> <img class=3D"inline-block relative bg-color-ent=
+ity-ghost-background w-8 h-8" src=3D"https://media.licdn.com/dms/image/v2/D4E=
+07AQG4Pm9xWx5PEw/group-logo_image-shrink_400x400/B4EZ5T1r3PIkAM-/0/1779523043=
+184?e=3D1785200400&amp;v=3Dbeta&amp;t=3DF8lRDk5FhGaHocXbGIMZnQEMErdOvYN401UZS=
+gZ9nbA" alt=3D"Research, Methodology, and Statistics in Higher Education" sty=
+le=3D"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; =
+position: relative; display: inline-block; height: 64px; width: 64px; backgro=
+und-color: #eae6df;" width=3D"64" height=3D"64"> </a> </td> <td class=3D"pl-1=
+.5" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-=
+table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 12px;"> <a href=3D"ht=
+tps://www.linkedin.com/comm/groups/4292855?lipi=3Durn%3Ali%3Apage%3Aemail_ema=
+il_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midTok=
+en=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by=
+_admin_01-groups-0-b~view_group&amp;trkEmail=3Deml-email_groups_recommended_b=
+y_admin_01-groups-0-b~view_group-null-h4yxlg~mrtwt7em~d4-null-null&amp;eid=3D=
+h4yxlg-mrtwt7em-d4" target=3D"_blank" style=3D"color: #0a66c2; cursor: pointe=
+r; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 10=
+0%; -ms-text-size-adjust: 100%;"> <h3 class=3D"pb-0.5 heading-large text-lg b=
+reak-all text-color-text" dir=3D"ltr" style=3D"margin: 0; font-weight: 500; w=
+ord-break: break-all; padding-bottom: 4px; font-size: 20px; color: rgba(0, 0,=
+ 0, 0.9);">Research, Methodology, and Statistics in Higher=E2=80=A6</h3> <p c=
+lass=3D"body-small text-sm break-all text-color-text-low-emphasis" dir=3D"ltr=
+" style=3D"margin: 0; font-weight: 400; word-break: break-all; font-size: 14p=
+x; color: rgba(0, 0, 0, 0.6);">The International Higher Education Teaching an=
+d Learning Association (HETL.ORG) is a non-profit organization and a=E2=80=A6=
+</p> </a> </td> </tr> </tbody> </table> <table role=3D"presentation" valign=
+=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" styl=
+e=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-ls=
+pace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"pt-2 pb-1" styl=
+e=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-ls=
+pace: 0pt; mso-table-rspace: 0pt; padding-bottom: 8px; padding-top: 16px;"> <=
+table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cel=
+lpadding=3D"0" width=3D"100%" class=3D"email-button " data-test-id=3D"email-b=
+utton" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; m=
+so-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td valign=3D"mid=
+dle" align=3D"left" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-ad=
+just: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https:=
+//www.linkedin.com/comm/groups/4292855?lipi=3Durn%3Ali%3Apage%3Aemail_email_g=
+roups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=
+=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_a=
+dmin_01-groups-0-h~view_all_posts&amp;trkEmail=3Deml-email_groups_recommended=
+_by_admin_01-groups-0-h~view_all_posts-null-h4yxlg~mrtwt7em~d4-null-null&amp;=
+eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" aria-label=3D"View all posts" cla=
+ss=3D"align-top no-underline " style=3D"color: #0a66c2; cursor: pointer; disp=
+lay: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms=
+-text-size-adjust: 100%; vertical-align: top; text-decoration-line: none;"> <=
+table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cel=
+lpadding=3D"0" width=3D"auto" class=3D"border-separate " style=3D"-webkit-tex=
+t-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-t=
+able-rspace: 0pt; border-collapse: separate;"> <tbody> <tr> <td class=3D"btn-=
+md btn-secondary-emphasis border-color-brand button-link leading-regular !min=
+-h-[auto] !shadow-none border-1 border-solid" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt; height: min-content; border-radius: 24px; padding-top: 12px; padding-b=
+ottom: 12px; padding-left: 24px; padding-right: 24px; text-align: center; fon=
+t-size: 16px; font-weight: 600; cursor: pointer; text-decoration-line: none; =
+background-color: rgba(0, 0, 0, 0); color: #0a66c2; border-width: 1px; border=
+-style: solid; border-color: #0a66c2; line-height: 1.25; min-height: auto !im=
+portant; box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000 !important;"> <a href=3D=
+"https://www.linkedin.com/comm/groups/4292855?lipi=3Durn%3Ali%3Apage%3Aemail_=
+email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;mid=
+Token=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended=
+_by_admin_01-groups-0-h~view_all_posts&amp;trkEmail=3Deml-email_groups_recomm=
+ended_by_admin_01-groups-0-h~view_all_posts-null-h4yxlg~mrtwt7em~d4-null-null=
+&amp;eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" tabindex=3D"-1" aria-hidden=
+=3D"true" class=3D"no-underline" style=3D"color: #0a66c2; cursor: pointer; di=
+splay: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%; text-decoration-line: none;"> <span class=3D"no-un=
+derline text-color-brand" style=3D"color: #0a66c2; text-decoration-line: none=
+;"> View all posts </span> </a> </td> </tr> </tbody> </table> </a> </td> </tr=
+> </tbody> </table> </td> </tr> </tbody> </table> </div> </td> </tr> <tr> <td=
+ class=3D"bg-color-background-canvas p-3" style=3D"-webkit-text-size-adjust: =
+100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0p=
+t; background-color: #f3f2f0; padding: 24px;"> <table role=3D"presentation" v=
+align=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%"=
+ style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-tab=
+le-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"text-cente=
+r pb-2" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; =
+mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 16px; text-alig=
+n: center;"> <h2 class=3D"text-lg" style=3D"margin: 0; font-weight: 500; font=
+-size: 20px;"> Never miss an update with the LinkedIn app </h2> </td> </tr> <=
+tr> <td class=3D"text-center" data-test-id=3D"footer-app-store-icon" style=3D=
+"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt; text-align: center;"> <a href=3D"https://itunes=
+.apple.com/us/app/linkedin/id288429040?pt=3D10746&amp;ct=3Dst_appsite_flagshi=
+p&amp;mt=3D8" target=3D"_blank" rel=3D"noopener noreferrer" style=3D"color: #=
+0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webki=
+t-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <img alt=3D"Download =
+on the App Store" src=3D"https://static.licdn.com/aero-v1/sc/h/76yzkd0h5kiv27=
+lrd4yaenylk" class=3D"h-[40px] w-[120px] pr-1" style=3D"outline: none; text-d=
+ecoration: none; -ms-interpolation-mode: bicubic; height: 40px; width: 120px;=
+ padding-right: 8px;" width=3D"120" height=3D"40"> </a> <a href=3D"https://pl=
+ay.google.com/store/apps/details?id=3Dcom.linkedin.android&amp;referrer=3Dst_=
+appsite_flagship" target=3D"_blank" rel=3D"noopener noreferrer" style=3D"colo=
+r: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -w=
+ebkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <img alt=3D"Get i=
+t on Google Play" src=3D"https://static.licdn.com/aero-v1/sc/h/142qudwblp58zw=
+mc9vkqfplug" class=3D"h-[40px] w-[134px]" style=3D"outline: none; text-decora=
+tion: none; -ms-interpolation-mode: bicubic; height: 40px; width: 134px;" wid=
+th=3D"134" height=3D"40"> </a> </td> </tr> <tr> <td class=3D"py-2" style=3D"-=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: =
+0pt; mso-table-rspace: 0pt; padding-top: 16px; padding-bottom: 16px;"><hr cla=
+ss=3D"border-none bg-[#e0dfdd] h-[1px]" style=3D"height: 1px; border-style: n=
+one; background-color: #e0dfdd;"></td> </tr> </tbody> </table> <table role=3D=
+"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0=
+" width=3D"100%" class=3D"text-xs" style=3D"-webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font=
+-size: 12px;"> <tbody> <tr> <td class=3D"pb-1 m-0" data-test-id=3D"email-foot=
+er__intended" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: =
+100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; padding-bott=
+om: 8px;"> This email was intended for Joshua Hopkins (CAIO | Forensic Intell=
+igence for Capital Infrastructure | AI Systems Architect for Project Controls=
+) </td> </tr> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-text-size-adjust: =
+100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0p=
+t; margin: 0px; padding-bottom: 8px;"> <a href=3D"https://www.linkedin.com/he=
+lp/linkedin/answer/4788?lang=3Den&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_gr=
+oups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED
+REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_admi=
+n_01-SecurityHelp-0-footerglimmer&amp;trkEmail=3Deml-email_groups_recommended=
+_by_admin_01-SecurityHelp-0-footerglimmer-null-h4yxlg~mrtwt7em~d4-null-null&a=
+mp;eid=3Dh4yxlg-mrtwt7em-d4" target=3D"_blank" class=3D"text-inherit underlin=
+e" style=3D"cursor: pointer; display: inline-block; text-decoration: none; -w=
+ebkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: inherit; tex=
+t-decoration-line: underline;">Learn why we included this.</a> </td> </tr> <t=
+r> <td class=3D"pb-1 m-0" style=3D"-webkit-text-size-adjust: 100%; -ms-text-s=
+ize-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; =
+padding-bottom: 8px;">You are receiving LinkedIn notification emails.</td> </=
+tr> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-text-size-adjust: 100%; -ms-=
+text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin:=
+ 0px; padding-bottom: 8px;"> <a href=3D"https://www.linkedin.com/comm/myprefe=
+rences/u/emailunsub?action=3DupdateEmailSubscription&amp;lipi=3Durn%3Ali%3Apa=
+ge%3Aemail_email_groups_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D=
+%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_=
+recommended_by_admin_01-unsubscribe-0-footerGlimmer&amp;trkEmail=3Deml-email_=
+groups_recommended_by_admin_01-unsubscribe-0-footerGlimmer-null-h4yxlg~mrtwt7=
+em~d4-null-null&amp;eid=3Dh4yxlg-mrtwt7em-d4&amp;loid=REDACTED" target=3D"_=
+blank" class=3D"text-inherit underline" style=3D"cursor: pointer; display: in=
+line-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-s=
+ize-adjust: 100%; color: inherit; text-decoration-line: underline;">Unsubscri=
+be</a> =C2=A0=C2=A0=C2=B7=C2=A0=C2=A0 <a href=3D"https://www.linkedin.com/hel=
+p/linkedin/answer/67?lang=3Den&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_group=
+s_recommended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED
+ACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_admin_0=
+1-help-0-footerglimmer&amp;trkEmail=3Deml-email_groups_recommended_by_admin_0=
+1-help-0-footerglimmer-null-h4yxlg~mrtwt7em~d4-null-null&amp;eid=3Dh4yxlg-mrt=
+wt7em-d4" target=3D"_blank" data-test-help-link class=3D"text-inherit underli=
+ne" style=3D"cursor: pointer; display: inline-block; text-decoration: none; -=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: inherit; te=
+xt-decoration-line: underline;">Help</a> </td> </tr> <tr> <td class=3D"pb-1" =
+style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-tabl=
+e-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 8px;"> <a href=3D"https=
+://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_email_groups_re=
+commended_by_admin_01%3BAUQC77w0QpGbBqlNSS3u%2Bg%3D%3D&amp;midToken=REDACTED
+D&amp;midSig=REDACTED&amp;trk=3Deml-email_groups_recommended_by_admin_01-fo=
+oter-0-logoGlimmer&amp;trkEmail=3Deml-email_groups_recommended_by_admin_01-fo=
+oter-0-logoGlimmer-null-h4yxlg~mrtwt7em~d4-null-null&amp;eid=3Dh4yxlg-mrtwt7e=
+m-d4" target=3D"_blank" style=3D"color: #0a66c2; cursor: pointer; display: in=
+line-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-s=
+ize-adjust: 100%;"> <img src=3D"https://static.licdn.com/aero-v1/sc/h/9ehe6n3=
+9fa07dc5edzv0rla4e" alt=3D"LinkedIn" class=3D"block h-[14px] w-[56px] image-r=
+endering-crisp" style=3D"outline: none; text-decoration: none; image-renderin=
+g: -moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering: -webki=
+t-optimize-contrast; image-rendering: crisp-edges; -ms-interpolation-mode: ne=
+arest-neighbor; display: block; height: 14px; width: 56px;" width=3D"56" heig=
+ht=3D"14"> </a> </td> </tr> <tr> <td data-test-copyright-text style=3D"-webki=
+t-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; =
+mso-table-rspace: 0pt;"> =C2=A9 2026 LinkedIn Corporation, 1&zwnj;000 West Ma=
+ude Avenue, Sunnyvale, CA 94085. <span data-test-trademarks-text> LinkedIn an=
+d the LinkedIn logo are registered trademarks of LinkedIn. </span> </td> </tr=
+> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </tabl=
+e> <img alt role=3D"presentation" src=3D"https://www.linkedin.com/emimp/ip_YU=
+RSNWVHeG5MVzF5ZEhkME4yVnRMV1EwOlpXMWhhV3hmWjNKdmRYQnpYM0psWTI5dGJXVnVaR1ZrWDJ=
+KNVgyRmtiV2x1WHpBeDo=3D.gif" style=3D"outline: none; text-decoration: none; -=
+ms-interpolation-mode: bicubic; width: 1px; height: 1px;" width=3D"1" height=
+=3D"1"> </body> </html>
+
+------=_Part_104760414_1295490322.1784593365059--
+

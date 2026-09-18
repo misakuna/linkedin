@@ -1,0 +1,833 @@
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_84251184_388745025.1784214540043"
+Delivered-To: david@example.com
+Received: by 2002:ab0:28d0:0:b0:96b:358b:3adc with SMTP id g16csp636051uaq;
+        Thu, 16 Jul 2026 08:11:20 -0700 (PDT)
+Received: from maile-bd.linkedin.com (maile-bd.linkedin.com. [108.174.3.204])
+        by mx.google.com with ESMTPS id
+ af79cd13be357-92ee5d541a9si2073935685a.302.2026.07.16.08.11.19        for
+ <david@example.com>        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384
+ bits=256/256);        Thu, 16 Jul 2026 08:11:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:25d1:b0:92b:6805:eae7 with SMTP id
+ af79cd13be357-9309629f932mr869007585a.68.1784214679780;        Thu, 16 Jul
+ 2026 08:11:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784214679; cv=none;        d=google.com;
+ s=arc-20260327;       
+ b=nqktI2FS66GEZx6VMHWm2FYkEhEmYF4z2bP7mPfwpO5ANGMtSGD3bVmoykTVRPJ5lY        
+ JPW55ofMYuVI3xEtpUOycdGIR4QOZcBBVZJQq/MqmmbLr+0Tu6YxHKlAN0/U68bwIhDz        
+ S5WpcT7GC5NZwewz6a58zKGcFfS2+rNKSXfwWDUJKeJlRxGAdmFkizq15s52HckG49dK        
+ hrKHUipv6ZCqTLwNEn2+SBw51aQDAVULB8ITEf3Sxs6Fsegke6/E3I30aYoAhg3LBN6g        
+ Lww98V9ODx0UA/KYrsCWei7NoWF2filH5E6YDt98Na5d7nJvlwulYJEPxcwO2Q7LLrDE        
+ utkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327;       
+ h=require-recipient-valid-since:feedback-id:list-unsubscribe-post        
+ :list-unsubscribe:to:mime-version:subject:message-id:from:date        
+ :dkim-signature:dkim-signature;       
+ bh=OcG0NwW6dBQM4+KxgqUFlij72zN2gfVtWbYk532Dj3U=;       
+ fh=xQqhXUSlnvkurU5e1CsttjlFkRe6+bg35lSQ0kSpC4w=;       
+ b=X27s3VSmYS5/jPT2GJilFL2lxCA4dnPvOEmcA121O+IxL4Y9Kt0hWjJpidFPH7Ywzh        
+ Nh7MK7VrQI3/RgVOzFrRvggtwi3P3PipCwvy+2IMdeqXy7yNG9F47hoaXjrkpdVSjg79        
+ 7tCUWJxi+q5WZIxq+OOBOZbkQLOlJvMxRJqPY0IIBJMFmTjP9i4K4RPeXoZreIr00ElO        
+ lWERYRdiP6qxoQtRGyT5EG7lU/yOvm4x7X6E9r7oHo+sZu0sHix58HN3AMeYuw+Lo09y        
+ Na+OFoNiz+sGj3R3sGJqw522cV384Ric3oSGcpdAfPM9afVv17zeXqKeGy/x0rsuNf33        
+ WPXw==;        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;       dkim=pass
+ header.i=@maile.linkedin.com header.s=d2048-202308-0e header.b=Ic9sZtAj;
+       dkim=pass header.i=@linkedin.com header.s=d2048-202308-00
+ header.b=nIajalUl;       spf=pass (google.com: domain of =?utf-8?q?m-6xu529?=
+ =?utf-8?q?8xqffbb3e8bpz8es347jn5wu2tcohb5f9il9qmdifbxvwhdejldfa=40bounce=2E?=
+ =?utf-8?q?linkedin=2Ecom_designates_108=2E174=2E3=2E204_as_permitted_sender?=
+ =?utf-8?q?=29_smtp=2Emailfrom=3Dm-6xu5298xqffbb3e8bpz8es347jn5wu2tcohb5f9il?=
+ =?utf-8?q?9qmdifbxvwhdejldfa=40bounce=2Elinkedin=2Ecom=3B?=       dmarc=pass
+ (p=REJECT sp=REJECT dis=NONE) header.from=linkedin.com
+Return-Path: =?utf-8?q?=3Cm-6xu5298xqffbb3e8bpz8es347jn5wu2tcohb5f9il9qmdifb?=
+ =?utf-8?q?xvwhdejldfa=40bounce=2Elinkedin=2Ecom=3E?=
+Received-SPF: pass (google.com: domain of =?utf-8?q?m-6xu5298xqffbb3e8bpz8es?=
+ =?utf-8?q?347jn5wu2tcohb5f9il9qmdifbxvwhdejldfa=40bounce=2Elinkedin=2Ecom?=
+ designates 108.174.3.204 as permitted sender) client-ip=108.174.3.204;
+Authentication-Results: mx.google.com;       dkim=pass
+ header.i=@maile.linkedin.com header.s=d2048-202308-0e header.b=Ic9sZtAj;
+       dkim=pass header.i=@linkedin.com header.s=d2048-202308-00
+ header.b=nIajalUl;       spf=pass (google.com: domain of =?utf-8?q?m-6xu529?=
+ =?utf-8?q?8xqffbb3e8bpz8es347jn5wu2tcohb5f9il9qmdifbxvwhdejldfa=40bounce=2E?=
+ =?utf-8?q?linkedin=2Ecom_designates_108=2E174=2E3=2E204_as_permitted_sender?=
+ =?utf-8?q?=29_smtp=2Emailfrom=3Dm-6xu5298xqffbb3e8bpz8es347jn5wu2tcohb5f9il?=
+ =?utf-8?q?9qmdifbxvwhdejldfa=40bounce=2Elinkedin=2Ecom=3B?=       dmarc=pass
+ (p=REJECT sp=REJECT dis=NONE) header.from=linkedin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maile.linkedin.com;
+	s=d2048-202308-0e; t=1784214540;
+	bh=OcG0NwW6dBQM4+KxgqUFlij72zN2gfVtWbYk532Dj3U=;
+	h=Date:From:Subject:MIME-Version:Content-Type:To:X-LinkedIn-Class:	
+ X-LinkedIn-Template:X-LinkedIn-fbl;
+	b=Ic9sZtAjSPzS1PAaFqwwTKmpxssMGFehMewl3NeEtG2yk/K5EMmYE2gCBASOErT7u	
+ 7EnWMqJ6cU6LnrlWLR0bdttUfBISyJfL6G6SU4wr/k9dBFlAZNzkf53NLtpWhX3i7T	
+ upYexAATSmrUsgaiA6HULWVmWPFDyHxpzMkLARWkGbprUP/00D1+C/kmT3D2PBV+Lx	
+ d7nqUQcFLxsI0nuOoeIa4zS7PN3J8HkxJZ9JwBcacoGSh1moh5Aq3xngz4zoql21Yh	
+ Hx4219FuKUaB1RjvyH5qccX7vTqZQfLLRsGpguq3ODi+Yo9OiT03KH7vn+3ykNTfPv	
+ TogkNXOUwpT0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linkedin.com;
+	s=d2048-202308-00; t=1784214540;
+	bh=OcG0NwW6dBQM4+KxgqUFlij72zN2gfVtWbYk532Dj3U=;
+	h=Date:From:Subject:MIME-Version:Content-Type:To:X-LinkedIn-Class:	
+ X-LinkedIn-Template:X-LinkedIn-fbl;
+	b=nIajalUlRAwi1cdKK8S6ExhN/TahKpScEKqDQOckCA4SYtf/Q2Y4q774xE/pfK2FJ	
+ uNmtr9+/QjGs/k/PDIgyS2TiWMMqS14HTQy14aj0Md/v7vy+l/GOHPiGpxGG9zlogQ	
+ KdXTeLh8LHmBG9ZsfWlKM5gdH15GYvGHfET73I22YWeoHsAtxbV5ONSMekGUcSwKDc	
+ ZGQo13Kyavp00DmjdR9ZyjtY/7jT7ripZGyYzcwoeP6AZP3jbnMuJH5EYZHNKVj7SN	
+ KvmPhyqDTPGW1Phm8Py/I9ThARfRH0x4mVAaMRLY0ezTJDgHXCSdtLbnGCBggtGnzx	
+ tN26AbGGGN2hg==
+Date: Thu, 16 Jul 2026 15:09:00 +0000
+From:
+ "Gloria Treister, HHP, APFS via LinkedIn" <newsletters-noreply@linkedin.com>
+Message-ID: <258978880.84251186.1784214540044@lva2-app66245.prod.linkedin.com>
+Subject: =?utf-8?b?4piA?= Why Am I So Tired This Summer? What heat, hydration,
+ sleep, blood sugar, and minerals may have to do with it
+To: David Whittington <david@example.com>
+X-LinkedIn-Class: EMAIL-DEFAULT
+X-LinkedIn-Template: email_series_follow_newsletter_02
+X-LinkedIn-fbl: =?utf-8?q?m2-aszzqjbvmqqvmlqf79ybrt9txqbknhtefsglg0a9ssfbhmg?=
+ =?utf-8?q?gmcnbia3kyajuisxx1elirube7ius2ikigbiha0dcump1y49fbf3u51?=
+X-LinkedIn-Id: svmihh-mrnn6x3f-26
+List-Unsubscribe: =?utf-8?q?=3Chttps=3A//www=2Elinkedin=2Ecom/series-notific?=
+ =?utf-8?q?ations/=3Faction=3Dunsubscribe=26memberToken=3DADoAAGgUdhUBY9s6bp?=
+ =?utf-8?q?kNig5c-dy10EcpvIETS1c=26newsletterId=3D7074754920800735232=26news?=
+ =?utf-8?q?letterTitle=3DWellness_101=C3=82=C2=AE=26lipi=3Durn=253Ali=253Apa?=
+ =?utf-8?q?ge=253Aemail=5Femail=5Fseries=5Ffollow=5Fnewsletter=5F02=253BOQ9T?=
+ =?utf-8?q?KoBHS3mGtracRxi5gQ=253D=253D=26midToken=REDACTED
+ =?utf-8?q?ACTED=26ek=3Demail=5Fseries=5Ffollow=5Fnewsletter=5F02=26e=3Dsvmi?=
+ =?utf-8?q?hh-mrnn6x3f-26=26eid=3Dsvmihh-mrnn6x3f-26=26m=3Dunsub=26ts=3Dunsu?=
+ =?utf-8?q?b=26li=3D0=26t=3Dplh=3E?=
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Feedback-ID: email_series_follow_newsletter_02:linkedin
+Require-Recipient-Valid-Since:
+ david@example.com; Thu, 7 May 2026 02:47:13 +0000
+
+------=_Part_84251184_388745025.1784214540043
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+Wellness 101=C2=AE
+
+By Gloria Treister, HHP, APFS
+
+
+By Gloria Treister, HHP, APFS
+
+   =20
+   =20
+    Read this article on LinkedIn to join the conversation
+Read on LinkedIn
+https://www.linkedin.com/comm/pulse/why-am-i-so-tired-summer-what-heat-hydrat=
+ion-sleep-do-gloria-g2mff?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_=
+newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&midToken=REDACTED&midSig=REDACTED
+ACTED&trk=3Deml-email_series_follow_newsletter_02-null-0-read_more_banner_cta=
+_&trkEmail=3Deml-email_series_follow_newsletter_02-null-0-read_more_banner_ct=
+a_-null-svmihh~mrnn6x3f~26-null-null&eid=3Dsvmihh-mrnn6x3f-26
+ =20
+=F0=9F=93=96 Estimated read time: 4 minutes =F0=9F=91=8B Hi Wellness IQ Crew!=
+ Over the past few weeks, we have been talking about smarter supplement choic=
+es.=C2=A0We talked about=C2=A0creatine=C2=A0for muscle, energy, and healthy a=
+ging.=C2=A0We talked about=C2=A0magnesium=C2=A0and why the form matters.=C2=
+=A0Then we talked about=C2=A0electrolytes=C2=A0and how hydration is not alway=
+s as simple as drinking more water.=C2=A0And I have to tell you,=C2=A0I loved=
+ hearing from so many of you. Some of you checked your bottles and realized y=
+ou were already making good choices.=C2=A0Others said the articles helped you=
+ finally understand what to look for. Some of you created Fullscript accounts=
+. And yes, a few of you have started choosing better options through my dispe=
+nsary.=C2=A0That is exactly the point.=C2=A0Not more supplements just for the=
+ sake of taking more supplements. Smarter choices. Better quality. Less guess=
+ing. More Wellness IQ. So this week, let=E2=80=99s build on that with a quest=
+ion I hear all the time in the summer:=C2=A0Why am I so tired? =F0=9F=91=89=
+=C2=A0Let=E2=80=99s Raise Your Wellness IQ Summer fatigue can be real. Heat, =
+sweat, poor sleep, travel, alcohol, inconsistent meals, too little protein, b=
+lood sugar swings, dehydration, and low mineral intake can all leave you feel=
+ing more drained than usual. Sometimes the answer is not one thing. It is the=
+ combination. =E2=98=80=EF=B8=8F Heat Takes Energy When it is hot outside, yo=
+ur body has to work harder to stay cool.=C2=A0That can leave you feeling more=
+ tired, especially if you are outside for long periods of time, walking, exer=
+cising, gardening, sitting at outdoor events, traveling, or running around wi=
+th kids and grandkids.=C2=A0You may not think of heat as a stressor, but your=
+ body does.=C2=A0Heat can affect your energy, mood, appetite, sleep, hydratio=
+n, and recovery.=C2=A0That does not mean something is =E2=80=9Cwrong=E2=80=9D=
+ with you.=C2=A0It may simply mean your body is working harder than you reali=
+ze. =F0=9F=92=A7 Hydration Is Part of the Energy Story Water matters . . . a=
+=C2=A0lot! But when you sweat, you lose more than water. You also lose electr=
+olytes, especially sodium. If you are drinking water but still feeling wiped =
+out after heat, sweat, travel, workouts, alcohol, or long days outside,=C2=A0=
+it may be worth thinking about electrolyte support. Not every day.=C2=A0Not a=
+ll day long.=C2=A0And not because electrolytes are trendy. Because sometimes =
+your body needs more than plain water to feel replenished. =F0=9F=91=89=C2=A0=
+See My Favorite Clean Electrolyte Options Here:=C2=A0=C2=A0FULLSCRIPT LINK =
+=F0=9F=98=B4 Sleep Can Get Messy in the Summer Longer days, later nights, tra=
+vel, heat, alcohol, inconsistent routines, and more screen time can all affec=
+t sleep. And poor sleep can make everything feel harder the next day. You may=
+ crave more sugar, rely on more caffeine, feel less motivated to exercise, or=
+ feel like you are dragging even if you technically got enough hours in bed. =
+This is one reason I talk so often about=C2=A0magnesium glycinate. Magnesium =
+is not a magic sleep pill, but it is often chosen for relaxation, stress supp=
+ort, muscle relaxation, and gentle daily magnesium support. If you missed the=
+ magnesium article, this is a good time to check your bottle.=C2=A0The form m=
+atters. =F0=9F=91=89=C2=A0See My Favorite Magnesium Glycinate Options Here:=
+=C2=A0FULLSCRIPT LINK =F0=9F=8D=BD=EF=B8=8F Blood Sugar Swings Can Feel Like =
+Fatigue Summer schedules can throw off eating patterns. Maybe breakfast gets =
+skipped. Maybe lunch is lighter than usual. Maybe dinner is later. Maybe ther=
+e are more chips, cocktails, ice cream, desserts, barbecues, and snacky meals=
+. No judgment.=C2=A0That is summer. But big gaps between meals, too little pr=
+otein, too much sugar, or too many refined carbs can lead to blood sugar ups =
+and downs.=C2=A0And those dips can feel like: =F0=9F=8C=BF fatigue =F0=9F=8C=
+=BF brain fog =F0=9F=8C=BF irritability =F0=9F=8C=BF cravings =F0=9F=8C=BF sh=
+akiness =F0=9F=8C=BF afternoon crashes =F0=9F=8C=BF needing more caffeine One=
+ simple place to start: Build meals and snacks around protein, fiber, healthy=
+ fats, and color. Food first . . .=C2=A0Always. But sometimes, having a few s=
+mart supports on hand makes it easier to stay consistent. =F0=9F=92=AA Protei=
+n, Muscles, and Minerals Matter Too If you are not getting enough protein, yo=
+u may feel it. Protein helps support muscle, blood sugar balance, recovery, i=
+mmune function, and healthy aging. And as we age, protein becomes even more i=
+mportant. This is not about bodybuilding. It is about staying strong, steady,=
+ energized, and resilient. Minerals=C2=A0matter too. Magnesium and electrolyt=
+es help support fluid balance, muscle function, nerve signaling, energy produ=
+ction, relaxation, and healthy stress response. When you sweat more, eat inco=
+nsistently, drink more alcohol, travel, or rely on convenience foods, mineral=
+ intake and balance can suffer. This does not mean everyone needs a pile of s=
+upplements. It means minerals and protein are worth paying attention to. =F0=
+=9F=91=89 Quick Wellness IQ Check If you have been feeling unusually tired th=
+is summer, ask yourself: =F0=9F=8C=BF Am I drinking enough water? =F0=9F=8C=
+=BF Am I sweating more than usual? =F0=9F=8C=BF Do I need electrolytes someti=
+mes? =F0=9F=8C=BF Am I sleeping well? =F0=9F=8C=BF Am I getting enough protei=
+n? =F0=9F=8C=BF Am I skipping meals or grazing on snacks? =F0=9F=8C=BF Am I d=
+rinking more alcohol than usual? =F0=9F=8C=BF Am I relying on caffeine to pus=
+h through? =F0=9F=8C=BF Am I choosing supplements thoughtfully, or just guess=
+ing? That last question matters. Because the supplement aisle can be overwhel=
+ming. And the internet can be even worse. That is why I am putting more focus=
+ on helping you make better supplement choices, one topic at a time. =F0=9F=
+=92=8A Where My Fullscript Dispensary Comes In My goal is not to convince you=
+ to take every supplement. My goal is to help you make smarter choices when a=
+ supplement makes sense. Fullscript is my trusted professional supplement dis=
+pensary, used by health practitioners to recommend carefully vetted, high qua=
+lity products from brands preferred by clinicians. Instead of guessing online=
+, comparing hundreds of products, or grabbing whatever looks good on a shelf,=
+ I am creating simple, practical Fullscript lists around the topics we are di=
+scussing. This week, I created a short list of my favorite summer energy supp=
+ort options. The goal is simple: =F0=9F=8C=BF better quality =F0=9F=8C=BF tru=
+sted brands =F0=9F=8C=BF less confusion =F0=9F=8C=BF fewer impulse buys =F0=
+=9F=8C=BF smarter support for real-life wellness Depending on your needs, tha=
+t may include options for hydration, electrolytes, magnesium, protein, or ene=
+rgy metabolism support. =F0=9F=91=89=C2=A0See My Favorite Summer Energy Suppo=
+rt Options Here:=C2=A0FULLSCRIPT LINK Please bookmark this link. You always s=
+ave 15%, or 20% with auto ship, and you are welcome to share it with family a=
+nd friends. =E2=9C=85 A Smart Safety Note Fatigue can have many causes. Heat,=
+ hydration, sleep, stress, blood sugar, nutrition, hormones, medications, thy=
+roid function, anemia, infection, and other health concerns can all play a ro=
+le. If your fatigue is new, severe, persistent, unusual for you, or comes wit=
+h symptoms like dizziness, shortness of breath, chest pain, fainting, rapid h=
+eartbeat, confusion, weakness, or unexplained weight loss, please check with =
+your healthcare provider. Supplements can be helpful tools, but they are not =
+a substitute for appropriate medical care. =F0=9F=92=A1 Final Thought Summer =
+is supposed to feel fun. But heat, sweat, travel, late nights, alcohol, disru=
+pted routines, and inconsistent meals can all catch up with you. If you are f=
+eeling more tired than usual, do not just push harder. Pause and ask better q=
+uestions. Am I hydrated? Am I sleeping? Am I eating enough protein? Am I keep=
+ing blood sugar steady? Am I replenishing minerals when it makes sense? Am I =
+choosing better quality supplements, or am I just guessing? That is Wellness =
+IQ. See you next time. And as always, be cool to your future self. =F0=9F=98=
+=8E Wishing you wellness =F0=9F=8C=BA Gloria Gloria Treister HHP, Board Certi=
+fied Holistic Health Practitioner, Advanced Physical Fitness Specialist, EMCC=
+ Certified Executive and Business Coach ,Author:=C2=A0Wellness 101: Simple St=
+eps to Good Health=C2=A0 Follow Me On LinkedIn
+Keep reading on LinkedIn
+https://www.linkedin.com/comm/pulse/why-am-i-so-tired-summer-what-heat-hydrat=
+ion-sleep-do-gloria-g2mff?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_=
+newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&midToken=REDACTED&midSig=REDACTED
+ACTED&trk=3Deml-email_series_follow_newsletter_02-newsletter_content_preview_=
+text-0-readmore_button_&trkEmail=3Deml-email_series_follow_newsletter_02-news=
+letter_content_preview_text-0-readmore_button_-null-svmihh~mrnn6x3f~26-null-n=
+ull&eid=3Dsvmihh-mrnn6x3f-26
+ =20
+     =20
+
+----------------------------------------
+
+This email was intended for David Whittington (Mentor | Coach | Community Adv=
+ocate | Helping Professionals Build Wealth Through Health | Tranont Associate)
+Learn why we included this: https://www.linkedin.com/help/linkedin/answer/478=
+8?lang=3Den&lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%=
+3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&midToken=REDACTED&midSig=REDACTED&trk=3Dem=
+l-email_series_follow_newsletter_02-SecurityHelp-0-textfooterglimmer&trkEmail=
+=3Deml-email_series_follow_newsletter_02-SecurityHelp-0-textfooterglimmer-nul=
+l-svmihh~mrnn6x3f~26-null-null&eid=3Dsvmihh-mrnn6x3f-26
+You are receiving LinkedIn notification emails. Others can see that you are a=
+ subscriber.
+
+
+Unsubscribe: https://www.linkedin.com/series-notifications/?action=3Dunsubscr=
+ibe&memberToken=3DADoAAGgUdhUBY9s6bpkNig5c-dy10EcpvIETS1c&newsletterId=3D7074=
+754920800735232&newsletterTitle=3DWellness 101=C2=AE&lipi=3Durn%3Ali%3Apage%3=
+Aemail_email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&midTo=
+ken=3DREDACTED&midSig=REDACTED&ek=3Demail_series_follow_newsletter_02&e=3Ds=
+vmihh-mrnn6x3f-26&eid=3Dsvmihh-mrnn6x3f-26&m=3Dunsubscribe&ts=3DfooterGlimmer=
+&li=3D0&t=3Dplh  =C2=A0=C2=A0=C2=B7=C2=A0=C2=A0Help: https://www.linkedin.com=
+/help/linkedin/answer/67?lang=3Den&lipi=3Durn%3Ali%3Apage%3Aemail_email_serie=
+s_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&midToken=REDACTED&mid=
+Sig=3DREDACTED&trk=3Deml-email_series_follow_newsletter_02-help-0-textfooterg=
+limmer&trkEmail=3Deml-email_series_follow_newsletter_02-help-0-textfooterglim=
+mer-null-svmihh~mrnn6x3f~26-null-null&eid=3Dsvmihh-mrnn6x3f-26
+
+=C2=A9 2026 LinkedIn Corporation, 1zwnj000 West Maude Avenue, Sunnyvale, CA 9=
+4085.
+LinkedIn and the LinkedIn logo are registered trademarks of LinkedIn.
+
+------=_Part_84251184_388745025.1784214540043
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en"> <he=
+ad> <meta http-equiv=3D"Content-Type" content=3D"text/html;charset=3Dutf-8"> =
+<meta name=3D"HandheldFriendly" content=3D"true"> <meta name=3D"viewport" con=
+tent=3D"width=3Ddevice-width; initial-scale=3D0.666667; user-scalable=3D0"> <=
+meta name=3D"viewport" content=3D"width=3Ddevice-width"> <title></title> <sty=
+le>
+              @media (max-width: 512px) { .mercado-container { width: 100% !i=
+mportant; } }
+            </style> <style>
+            @media (max-width: 480px) { .inline-button, .inline-button table =
+{ display: none !important; }
+            .full-width-button, .full-width-button table { display: table !im=
+portant; } } @media (max-width: 320px) {
+            .games-notification-badge { display: none !important; } }
+          </style> <style>body {font-family: -apple-system, system-ui, BlinkM=
+acSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+            'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid San=
+s', 'Apple Color Emoji', 'Segoe UI Emoji',
+            'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, =
+Arial, sans-serif;}</style> <!--[if mso]><style type=3D"text/css"> </style><!=
+[endif]--> <!--[if IE]><style type=3D"text/css"> </style><![endif]--> </head>=
+ <body dir=3D"ltr" class=3D"font-sans bg-color-background-canvas w-full m-0 p=
+-0 pt-1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;=
+ margin: 0px; width: 100%; background-color: #f3f2f0; padding: 0px; padding-t=
+op: 8px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI=
+', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cant=
+arell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji',=
+ 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;"> <div cla=
+ss=3D"h-0 opacity-0 text-transparent invisible overflow-hidden w-0 max-h-[0]"=
+ style=3D"visibility: hidden; height: 0px; max-height: 0; width: 0px; overflo=
+w: hidden; opacity: 0; mso-hide: all;" data-email-preheader=3D"true">Wellness=
+ 101=C2=AE</div> <div class=3D"h-0 opacity-0 text-transparent invisible overf=
+low-hidden w-0 max-h-[0]" style=3D"visibility: hidden; height: 0px; max-heigh=
+t: 0; width: 0px; overflow: hidden; opacity: 0; mso-hide: all;"> =CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 </div> <table role=3D"presentation" valign=
+=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"512" align=
+=3D"center" class=3D"mercado-container w-[512px] max-w-[512px] mx-auto my-0 p=
+-0 " style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso=
+-table-lspace: 0pt; mso-table-rspace: 0pt; margin-left: auto; margin-right: a=
+uto; margin-top: 0px; margin-bottom: 0px; width: 512px; max-width: 512px; pad=
+ding: 0px;"> <tbody> <tr> <td style=3D"-webkit-text-size-adjust: 100%; -ms-te=
+xt-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <table =
+role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpaddi=
+ng=3D"0" width=3D"100%" class=3D"bg-color-background-container " style=3D"-we=
+bkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0p=
+t; mso-table-rspace: 0pt; background-color: #ffffff;"> <tbody> <tr> <td class=
+=3D"text-center p-3" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-a=
+djust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 24px; tex=
+t-align: center;"> <table role=3D"presentation" valign=3D"top" border=3D"0" c=
+ellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"min-w-full" style=
+=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lsp=
+ace: 0pt; mso-table-rspace: 0pt; min-width: 100%;"> <tbody> <tr> <td align=3D=
+"left" valign=3D"middle" style=3D"-webkit-text-size-adjust: 100%; -ms-text-si=
+ze-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"h=
+ttps://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_email_serie=
+s_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED
+&amp;midSig=REDACTED&amp;trk=3Deml-email_series_follow_newsletter_02-header=
+-0-home_glimmer_static_badging_with_count&amp;trkEmail=3Deml-email_series_fol=
+low_newsletter_02-header-0-home_glimmer_static_badging_with_count-null-svmihh=
+~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" class=
+=3D"w-[84px]" style=3D"color: #0a66c2; cursor: pointer; display: inline-block=
+; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust=
+: 100%; width: 84px;"> <img class=3D"h-[37px] w-[101px]" alt=3D"LinkedIn" src=
+=3D"https://static.licdn.com/aero-v1/sc/h/2fp5x7ci191mxbdy1eynscn59" data-tes=
+t-header-static-badging-img style=3D"outline: none; text-decoration: none; -m=
+s-interpolation-mode: bicubic; height: 37px; width: 101px;" width=3D"101" hei=
+ght=3D"37"> </a> </td> <td valign=3D"middle" align=3D"right" style=3D"-webkit=
+-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt;"> <table role=3D"presentation" valign=3D"top" border=3D=
+"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"auto" data-test-header-notif=
+ication-badges style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust:=
+ 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td align=
+=3D"right" valign=3D"middle" class=3D"px-0.5" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt; padding-left: 4px; padding-right: 4px;"> <a href=3D"https://www.linked=
+in.com/comm/messaging/?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_new=
+sletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=
+=3DREDACTED&amp;trk=3Deml-email_series_follow_newsletter_02-header-0-messagin=
+g_glimmer&amp;trkEmail=3Deml-email_series_follow_newsletter_02-header-0-messa=
+ging_glimmer-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" =
+target=3D"_blank" class=3D"h-[25px]" style=3D"color: #0a66c2; cursor: pointer=
+; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100=
+%; -ms-text-size-adjust: 100%; height: 25px;"> <img alt=3D"Messaging icon" sr=
+c=3D"https://static.licdn.com/aero-v1/sc/h/4zo4b28tqisx2lerkp2qoioke" class=
+=3D"h-[25px]" style=3D"outline: none; text-decoration: none; -ms-interpolatio=
+n-mode: bicubic; height: 25px;" height=3D"25"> </a> </td> <td align=3D"right"=
+ valign=3D"middle" class=3D"px-0.5" style=3D"-webkit-text-size-adjust: 100%; =
+-ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; pad=
+ding-left: 4px; padding-right: 4px;"> <a href=3D"https://www.linkedin.com/com=
+m/mynetwork/?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02=
+%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED
+&amp;trk=3Deml-email_series_follow_newsletter_02-header-0-my_network_glimmer&=
+amp;trkEmail=3Deml-email_series_follow_newsletter_02-header-0-my_network_glim=
+mer-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D=
+"_blank" class=3D"h-[25px]" style=3D"color: #0a66c2; cursor: pointer; display=
+: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-te=
+xt-size-adjust: 100%; height: 25px;"> <img alt=3D"Mynetwork icon" src=3D"http=
+s://static.licdn.com/aero-v1/sc/h/anu0f2h3c0xay9ou5nkdrjk8q" class=3D"h-[25px=
+]" style=3D"outline: none; text-decoration: none; -ms-interpolation-mode: bic=
+ubic; height: 25px;" height=3D"25"> </a> </td> <td align=3D"right" valign=3D"=
+middle" class=3D"px-0.5" style=3D"-webkit-text-size-adjust: 100%; -ms-text-si=
+ze-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: =
+4px; padding-right: 4px;"> <a href=3D"https://www.linkedin.com/comm/notificat=
+ions/?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%3BOQ9T=
+KoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;tr=
+k=3Deml-email_series_follow_newsletter_02-header-0-notifications_glimmer&amp;=
+trkEmail=3Deml-email_series_follow_newsletter_02-header-0-notifications_glimm=
+er-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"=
+_blank" class=3D"h-[25px]" style=3D"color: #0a66c2; cursor: pointer; display:=
+ inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-tex=
+t-size-adjust: 100%; height: 25px;"> <img alt=3D"Notifications icon" src=3D"h=
+ttps://static.licdn.com/aero-v1/sc/h/eimvvyqypv9ks7z164xgby2a5" class=3D"h-[2=
+5px]" style=3D"outline: none; text-decoration: none; -ms-interpolation-mode: =
+bicubic; height: 25px;" height=3D"25"> </a> </td> </tr> </tbody> </table> </t=
+d> </tr> </tbody> </table> </td> </tr> <tr> <td class=3D"px-0 pb-3" style=3D"=
+-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace:=
+ 0pt; mso-table-rspace: 0pt; padding-left: 0px; padding-right: 0px; padding-b=
+ottom: 24px;"> <div> <table role=3D"presentation" valign=3D"top" border=3D"0"=
+ cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-siz=
+e-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-=
+rspace: 0pt;"> <tbody> <tr> <td data-test-id=3D"newsletter-entity-lockup" cla=
+ss=3D"px-3 pt-1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 24px; pa=
+dding-right: 24px; padding-top: 8px;"> <table role=3D"presentation" valign=3D=
+"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=
+=3D"font-sans" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust:=
+ 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-family: -apple-syst=
+em, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fir=
+a Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color=
+ Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grand=
+e', Helvetica, Arial, sans-serif;"> <tbody> <tr> <td valign=3D"top" class=3D"=
+pr-1 w-6" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 48px; padding-right: 8=
+px;" width=3D"48"> <a href=3D"https://www.linkedin.com/comm/newsletters/70747=
+54920800735232?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_=
+02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED
+ED&amp;trk=3Deml-email_series_follow_newsletter_02-newsletter_entity_lockup-0=
+-newsletter_entity_cta&amp;trkEmail=3Deml-email_series_follow_newsletter_02-n=
+ewsletter_entity_lockup-0-newsletter_entity_cta-null-svmihh~mrnn6x3f~26-null-=
+null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" style=3D"color: #0a66c2;=
+ cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-=
+size-adjust: 100%; -ms-text-size-adjust: 100%;"> <img class=3D"inline-block r=
+elative bg-color-entity-ghost-background w-6 h-6 rounded-md" src=3D"https://s=
+tatic.licdn.com/aero-v1/sc/h/4yyyhel44j5ijj72143q7jugl" alt=3D"Open Wellness =
+101=C2=AE" style=3D"outline: none; text-decoration: none; -ms-interpolation-m=
+ode: bicubic; position: relative; display: inline-block; height: 48px; width:=
+ 48px; border-radius: 8px; background-color: #eae6df;" width=3D"48" height=3D=
+"48"> </a> </td> <td valign=3D"top" style=3D"-webkit-text-size-adjust: 100%; =
+-ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <=
+table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cel=
+lpadding=3D"0" width=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -ms-te=
+xt-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody>=
+ <tr> <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%=
+; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https://www.link=
+edin.com/comm/newsletters/7074754920800735232?lipi=3Durn%3Ali%3Apage%3Aemail_=
+email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=
+=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_series_follow_newslette=
+r_02-newsletter_entity_lockup-0-newsletter_entity_cta&amp;trkEmail=3Deml-emai=
+l_series_follow_newsletter_02-newsletter_entity_lockup-0-newsletter_entity_ct=
+a-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_=
+blank" class=3D"no-underline" style=3D"color: #0a66c2; cursor: pointer; displ=
+ay: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-=
+text-size-adjust: 100%; text-decoration-line: none;"> <div class=3D"pb-0.5" s=
+tyle=3D"padding-bottom: 4px;"> <span class=3D"text-md font-bold text-color-te=
+xt break-words leading-regular" style=3D"overflow-wrap: break-word; font-size=
+: 16px; font-weight: 600; line-height: 1.25; color: rgba(0, 0, 0, 0.9);"> Wel=
+lness 101=C2=AE </span> </div> </a> </td> </tr> <tr> <td style=3D"-webkit-tex=
+t-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-t=
+able-rspace: 0pt;"> <a href=3D"https://www.linkedin.com/comm/newsletters/7074=
+754920800735232?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter=
+_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED
+TED&amp;trk=3Deml-email_series_follow_newsletter_02-newsletter_entity_lockup-=
+0-newsletter_entity_cta&amp;trkEmail=3Deml-email_series_follow_newsletter_02-=
+newsletter_entity_lockup-0-newsletter_entity_cta-null-svmihh~mrnn6x3f~26-null=
+-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" class=3D"no-underline" =
+style=3D"color: #0a66c2; cursor: pointer; display: inline-block; text-decorat=
+ion: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-d=
+ecoration-line: none;"> <span class=3D"text-xs text-color-text-low-emphasis l=
+eading-regular" style=3D"font-size: 12px; line-height: 1.25; color: rgba(0, 0=
+, 0, 0.6);"> Simple Steps to Good Health - Subscribe here - &lt;style&gt; .li=
+button { display: flex;=E2=80=A6 </span> </a> </td> </tr> </tbody> </table> <=
+/td> </tr> </tbody> </table> </td> </tr> <tr data-test-id=3D"newsletter-conte=
+nt-preview"> <td class=3D"px-3 pt-2" style=3D"-webkit-text-size-adjust: 100%;=
+ -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; pa=
+dding-left: 24px; padding-right: 24px; padding-top: 16px;"> <table role=3D"pr=
+esentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" w=
+idth=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: =
+100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=
+=3D"overflow-hidden " style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-=
+adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; overflow: hidden;=
+"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0"=
+ cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -m=
+s-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tb=
+ody> <tr> <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: =
+100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https://www.=
+linkedin.com/comm/pulse/why-am-i-so-tired-summer-what-heat-hydration-sleep-do=
+-gloria-g2mff?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_0=
+2%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED
+D&amp;trk=3Deml-email_series_follow_newsletter_02-newsletter_content_preview-=
+0-headline_&amp;trkEmail=3Deml-email_series_follow_newsletter_02-newsletter_c=
+ontent_preview-0-headline_-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh=
+-mrnn6x3f-26" target=3D"_blank" class=3D"w-full" style=3D"color: #0a66c2; cur=
+sor: pointer; display: inline-block; text-decoration: none; -webkit-text-size=
+-adjust: 100%; -ms-text-size-adjust: 100%; width: 100%;"> <img class=3D"block=
+ w-full aspect-[744/400] object-cover overflow-hidden" data-test-id=3D"newsle=
+tter-content-preview__cover-image" alt=3D"Newsletter cover image" src=3D"http=
+s://media.licdn.com/dms/image/v2/D4D12AQEdclNHpNTalA/article-cover_image-shri=
+nk_720_1280/B4DZ9rYAWCI8AQ-/0/1784212883245?e=3D1785974400&amp;v=3Dbeta&amp;t=
+=3DdYN9mERtvyOgYE26TJ6EQWpxm--7mx0kAr2tTfmR2sk" style=3D"outline: none; text-=
+decoration: none; -ms-interpolation-mode: bicubic; display: block; aspect-rat=
+io: 744/400; width: 100%; overflow: hidden; object-fit: cover;"> </a> </td> <=
+/tr> <tr> <td class=3D"py-2" style=3D"-webkit-text-size-adjust: 100%; -ms-tex=
+t-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-to=
+p: 16px; padding-bottom: 16px;"> <table role=3D"presentation" valign=3D"top" =
+border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-web=
+kit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt=
+; mso-table-rspace: 0pt;"> <tbody> <tr> <td style=3D"-webkit-text-size-adjust=
+: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: =
+0pt;"> <a href=3D"https://www.linkedin.com/comm/pulse/why-am-i-so-tired-summe=
+r-what-heat-hydration-sleep-do-gloria-g2mff?lipi=3Durn%3Ali%3Apage%3Aemail_em=
+ail_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=
+=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_series_follow_newslette=
+r_02-newsletter_content_preview-0-title_&amp;trkEmail=3Deml-email_series_foll=
+ow_newsletter_02-newsletter_content_preview-0-title_-null-svmihh~mrnn6x3f~26-=
+null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" class=3D"no-underli=
+ne font-medium text-sm m-0 text-system-gray-90" style=3D"cursor: pointer; dis=
+play: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -m=
+s-text-size-adjust: 100%; margin: 0px; font-size: 14px; font-weight: 500; col=
+or: #282828; text-decoration-line: none;"> <h2 class=3D"m-0 text-display-sm l=
+eading-regular text-color-text font-bold font-sans" style=3D"margin: 0px; fon=
+t-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, '=
+Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droi=
+d Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI S=
+ymbol', 'Lucida Grande', Helvetica, Arial, sans-serif; font-size: 24px; font-=
+weight: 600; line-height: 1.25; color: rgba(0, 0, 0, 0.9);"> =E2=98=80 Why Am=
+ I So Tired This Summer? What heat, hydration, sleep, blood sugar, and minera=
+ls may have to do with it </h2> </a> </td> </tr> <tr> <td style=3D"-webkit-te=
+xt-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-=
+table-rspace: 0pt;"> <table role=3D"presentation" valign=3D"top" border=3D"0"=
+ cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" data-test-id=3D"newslette=
+r-author-lockup-redesign" class=3D"mt-1 mb-2" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt; margin-bottom: 16px; margin-top: 8px;"> <tbody> <tr> <td valign=3D"mid=
+dle" align=3D"left" class=3D"w-3" style=3D"-webkit-text-size-adjust: 100%; -m=
+s-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width=
+: 24px;" width=3D"24"> <a href=3D"https://www.linkedin.com/comm/in/gloriatrei=
+ster?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%3BOQ9TK=
+oBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=
+=3Deml-email_series_follow_newsletter_02-newsletter_content_preview-0-author_=
+&amp;trkEmail=3Deml-email_series_follow_newsletter_02-newsletter_content_prev=
+iew-0-author_-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26"=
+ target=3D"_blank" style=3D"color: #0a66c2; cursor: pointer; display: inline-=
+block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-a=
+djust: 100%;"> <img class=3D"inline-block relative bg-color-entity-ghost-back=
+ground clip-path-circle-50 rounded-full w-4 h-4 align-middle" src=3D"https://=
+media.licdn.com/dms/image/v2/D4D03AQEfaZsEAjFTBQ/profile-displayphoto-shrink_=
+400_400/B4DZabzNlUGgAg-/0/1746370616011?e=3D2147483647&amp;v=3Dbeta&amp;t=3DA=
+uasfuIleatiCYekLvdjsLJjyZzidAg45dLuVkbd5hQ" alt=3D"Author image" style=3D"out=
+line: none; text-decoration: none; -ms-interpolation-mode: bicubic; position:=
+ relative; display: inline-block; height: 32px; width: 32px; border-radius: 9=
+999px; background-color: #eae6df; vertical-align: middle; clip-path: circle(5=
+0%);" width=3D"32" height=3D"32"> </a> </td> <td style=3D"-webkit-text-size-a=
+djust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rsp=
+ace: 0pt;"> <a href=3D"https://www.linkedin.com/comm/in/gloriatreister?lipi=
+=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtr=
+acRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-em=
+ail_series_follow_newsletter_02-newsletter_content_preview-0-author_&amp;trkE=
+mail=3Deml-email_series_follow_newsletter_02-newsletter_content_preview-0-aut=
+hor_-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=
+=3D"_blank" class=3D"no-underline ml-1" style=3D"color: #0a66c2; cursor: poin=
+ter; display: inline-block; text-decoration: none; -webkit-text-size-adjust: =
+100%; -ms-text-size-adjust: 100%; margin-left: 8px; text-decoration-line: non=
+e;"> <span class=3D"font-sans font-bold text-sm mb-3 text-color-text-low-emph=
+asis leading-regular" style=3D"margin-bottom: 24px; font-family: -apple-syste=
+m, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira=
+ Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color =
+Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande=
+', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; line-heig=
+ht: 1.25; color: rgba(0, 0, 0, 0.6);"> Gloria Treister, HHP, APFS </span> </a=
+> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class=3D"pb-1" style=3D"=
+-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace:=
+ 0pt; mso-table-rspace: 0pt; padding-bottom: 8px;"> <div class=3D"p-3 bg-colo=
+r-surface-tint rounded-md font-sans" data-test-id=3D"newsletter-cta-banner" s=
+tyle=3D"border-radius: 8px; background-color: #f5f7f9; padding: 24px; font-fa=
+mily: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helv=
+etica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sa=
+ns', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbo=
+l', 'Lucida Grande', Helvetica, Arial, sans-serif;"> <div class=3D"mb-1.5" st=
+yle=3D"margin-bottom: 12px;"> <span class=3D"text-md leading-regular font-bol=
+d text-color-text" style=3D"font-size: 16px; font-weight: 600; line-height: 1=
+.25; color: rgba(0, 0, 0, 0.9);"> Read this article on LinkedIn to join the c=
+onversation </span> </div> <table role=3D"presentation" valign=3D"top" border=
+=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"email-butt=
+on " data-test-id=3D"email-button" style=3D"-webkit-text-size-adjust: 100%; -=
+ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <t=
+body> <tr> <td valign=3D"middle" align=3D"left" style=3D"-webkit-text-size-ad=
+just: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspa=
+ce: 0pt;"> <a href=3D"https://www.linkedin.com/comm/pulse/why-am-i-so-tired-s=
+ummer-what-heat-hydration-sleep-do-gloria-g2mff?lipi=3Durn%3Ali%3Apage%3Aemai=
+l_email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midTok=
+en=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_series_follow_newslet=
+ter_02-newsletter_content_preview-0-read_more_banner_cta_&amp;trkEmail=3Deml-=
+email_series_follow_newsletter_02-newsletter_content_preview-0-read_more_bann=
+er_cta_-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" targe=
+t=3D"_blank" aria-label=3D"Open this article on LinkedIn" class=3D"align-top =
+no-underline " style=3D"color: #0a66c2; cursor: pointer; display: inline-bloc=
+k; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; vertical-align: top; text-decoration-line: none;"> <table role=3D"pr=
+esentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" w=
+idth=3D"auto" class=3D"border-separate " style=3D"-webkit-text-size-adjust: 1=
+00%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt=
+; border-collapse: separate;"> <tbody> <tr> <td class=3D"btn-sm btn-primary b=
+order-color-brand button-link leading-regular !min-h-[auto] !shadow-none bord=
+er-1 border-solid" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adj=
+ust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; height: min-content;=
+ border-radius: 24px; padding-top: 7px; padding-bottom: 7px; padding-left: 16=
+px; padding-right: 16px; text-align: center; font-size: 14px; font-weight: 60=
+0; cursor: pointer; text-decoration-line: none; background-color: #0a66c2; co=
+lor: #ffffff; border-width: 1px; border-style: solid; border-color: #0a66c2; =
+line-height: 1.25; min-height: auto !important; box-shadow: 0 0 #0000, 0 0 #0=
+000, 0 0 #0000 !important;"> <a href=3D"https://www.linkedin.com/comm/pulse/w=
+hy-am-i-so-tired-summer-what-heat-hydration-sleep-do-gloria-g2mff?lipi=3Durn%=
+3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5g=
+Q%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_ser=
+ies_follow_newsletter_02-newsletter_content_preview-0-read_more_banner_cta_&a=
+mp;trkEmail=3Deml-email_series_follow_newsletter_02-newsletter_content_previe=
+w-0-read_more_banner_cta_-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-=
+mrnn6x3f-26" target=3D"_blank" tabindex=3D"-1" aria-hidden=3D"true" class=3D"=
+no-underline" style=3D"color: #0a66c2; cursor: pointer; display: inline-block=
+; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust=
+: 100%; text-decoration-line: none;"> <span class=3D"no-underline text-white"=
+ style=3D"color: #ffffff; text-decoration-line: none;"> Read on LinkedIn </sp=
+an> </a> </td> </tr> </tbody> </table> </a> </td> </tr> </tbody> </table> </d=
+iv> </td> </tr> <tr data-test-id=3D"newsletter-content-preview--content"> <td=
+ class=3D"series-article-body" style=3D"-webkit-text-size-adjust: 100%; -ms-t=
+ext-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-fam=
+ily: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helve=
+tica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid San=
+s', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol=
+', 'Lucida Grande', Helvetica, Arial, sans-serif; font-size: 16px; line-heigh=
+t: 1.5; color: rgba(0, 0, 0, 0.9);"> <p style=3D"margin: 0; font-weight: 400;=
+ margin-top: 0.8em; font-size: 1em; line-height: 1.5;"><strong>=F0=9F=93=96 E=
+stimated read time: 4 minutes</strong></p><p style=3D"margin: 0; font-weight:=
+ 400; margin-top: 0.8em; font-size: 1em; line-height: 1.5;"><strong>=F0=9F=91=
+=8B Hi Wellness IQ Crew!</strong></p><p style=3D"margin: 0; font-weight: 400;=
+ margin-top: 0.8em; font-size: 1em; line-height: 1.5;">Over the past few week=
+s, we have been talking about smarter supplement choices.&nbsp;We talked abou=
+t&nbsp;<strong>creatine</strong>&nbsp;for muscle, energy, and healthy aging.&=
+nbsp;We talked about&nbsp;<strong>magnesium</strong>&nbsp;and why the form ma=
+tters.&nbsp;Then we talked about&nbsp;<strong>electrolytes</strong>&nbsp;and =
+how hydration is not always as simple as drinking more water.&nbsp;And I have=
+ to tell you,&nbsp;<strong>I loved hearing from so many of you.</strong></p><=
+p style=3D"margin: 0; font-weight: 400; margin-top: 0.8em; font-size: 1em; li=
+ne-height: 1.5;">Some of you checked your bottles and realized you were alrea=
+dy making good choices.&nbsp;<strong>Others said the articles helped you fina=
+lly understand what to look for</strong>. Some of you created Fullscript acco=
+unts. And yes, a few of you have started choosing better options through my d=
+ispensary.&nbsp;That is exactly the point.&nbsp;Not more supplements just for=
+ the sake of taking more supplements.</p><ul style=3D"margin-top: 1em; margin=
+-right: 0px; margin-bottom: 0px; margin-left: 1.5em; display: block; padding:=
+ 0px;"><li style=3D"margin-left: 1em; font-size: 1em; line-height: 1.5; lette=
+r-spacing: -0.15%; color: #282828;"><p style=3D"margin: 0; font-weight: 400; =
+margin-top: 0.8em; font-size: 1em; line-height: 1.5;"><strong>Smarter choices=
+.</strong></p></li><li style=3D"margin-left: 1em; font-size: 1em; line-height=
+: 1.5; letter-spacing: -0.15%; color: #282828;"><p style=3D"margin: 0; font-w=
+eight: 400; margin-top: 0.8em; font-size: 1em; line-height: 1.5;"><strong>Bet=
+ter quality.</strong></p></li><li style=3D"margin-left: 1em; font-size: 1em; =
+line-height: 1.5; letter-spacing: -0.15%; color: #282828;"><p style=3D"margin=
+: 0; font-weight: 400; margin-top: 0.8em; font-size: 1em; line-height: 1.5;">=
+<strong>Less guessing.</strong></p></li><li style=3D"margin-left: 1em; font-s=
+ize: 1em; line-height: 1.5; letter-spacing: -0.15%; color: #282828;"><p style=
+=3D"margin: 0; font-weight: 400; margin-top: 0.8em; font-size: 1em; line-heig=
+ht: 1.5;"><strong>More Wellness IQ.</strong></p></li></ul><p style=3D"margin:=
+ 0; font-weight: 400; margin-top: 0.8em; font-size: 1em; line-height: 1.5;">S=
+o this week, let=E2=80=99s build on that with a question I hear all the time =
+in the summer:&nbsp;<strong><em style=3D"font-style: italic;">Why am I so tir=
+ed?</em></strong></p><p style=3D"margin: 0; font-weight: 400; margin-top: 0.8=
+em; font-size: 1em; line-height: 1.5;">=F0=9F=91=89&nbsp;<strong>Let=E2=80=99=
+s Raise Your Wellness IQ</strong> Summer fatigue can be real.</p><p style=3D"=
+margin: 0; font-weight: 400; margin-top: 0.8em; font-size: 1em; line-height: =
+1.5;">Heat, sweat, poor sleep, travel, alcohol, inconsistent meals, too littl=
+e protein, blood sugar swings, dehydration, and low mineral intake can all le=
+ave you feeling more drained than usual.</p><p style=3D"margin: 0; font-weigh=
+t: 400; margin-top: 0.8em; font-size: 1em; line-height: 1.5;">Sometimes the a=
+nswer is not one thing. It is the combination.</p><h2 style=3D"margin: 0; mar=
+gin-left: 0px; margin-right: 0px; margin-top: 8px; margin-bottom: 8px; font-s=
+ize: 20px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; colo=
+r: rgba(0, 0, 0, 0.9);">=E2=98=80=EF=B8=8F Heat Takes Energy</h2><p style=3D"=
+margin: 0; font-weight: 400; margin-top: 0.8em; font-size: 1em; line-height: =
+1.5;"><strong>When it is hot outside, your body has to work harder to stay co=
+ol.&nbsp;</strong>That can leave you feeling more tired, especially if you ar=
+e outside for l...</p> </td> </tr> <tr> <td class=3D"pt-2 no-underline" style=
+=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lsp=
+ace: 0pt; mso-table-rspace: 0pt; padding-top: 16px; text-decoration-line: non=
+e;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"=
+0" cellpadding=3D"0" width=3D"100%" class=3D"email-button series-content-prev=
+iew__bottom-cta" data-test-id=3D"email-button" style=3D"-webkit-text-size-adj=
+ust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspac=
+e: 0pt;"> <tbody> <tr> <td valign=3D"middle" align=3D"left" style=3D"-webkit-=
+text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; ms=
+o-table-rspace: 0pt;"> <a href=3D"https://www.linkedin.com/comm/pulse/why-am-=
+i-so-tired-summer-what-heat-hydration-sleep-do-gloria-g2mff?lipi=3Durn%3Ali%3=
+Apage%3Aemail_email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3=
+D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_series_fo=
+llow_newsletter_02-newsletter_content_preview-0-readmore_button_&amp;trkEmail=
+=3Deml-email_series_follow_newsletter_02-newsletter_content_preview-0-readmor=
+e_button_-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" tar=
+get=3D"_blank" aria-label=3D"Open Wellness 101=C2=AE on LinkedIn" class=3D"al=
+ign-top no-underline " style=3D"color: #0a66c2; cursor: pointer; display: inl=
+ine-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-si=
+ze-adjust: 100%; vertical-align: top; text-decoration-line: none; width: 100%=
+;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0=
+" cellpadding=3D"0" width=3D"100%" class=3D"border-separate " style=3D"-webki=
+t-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; =
+mso-table-rspace: 0pt; border-collapse: separate; width: 100%;"> <tbody> <tr>=
+ <td class=3D"btn-md btn-secondary-emphasis border-color-brand button-link le=
+ading-regular !min-h-[auto] !shadow-none border-1 border-solid font-sans" dat=
+a-test-id=3D"newsletter-content-preview-redesign-bottom-cta" style=3D"-webkit=
+-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt; height: min-content; border-radius: 24px; padding-top: =
+12px; padding-bottom: 12px; padding-left: 24px; padding-right: 24px; text-ali=
+gn: center; font-size: 16px; font-weight: 600; cursor: pointer; text-decorati=
+on-line: none; background-color: rgba(0, 0, 0, 0); color: #0a66c2; border-wid=
+th: 1px; border-style: solid; border-color: #0a66c2; font-family: -apple-syst=
+em, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fir=
+a Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color=
+ Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grand=
+e', Helvetica, Arial, sans-serif; line-height: 1.25; min-height: auto !import=
+ant; box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000 !important;"> <a href=3D"htt=
+ps://www.linkedin.com/comm/pulse/why-am-i-so-tired-summer-what-heat-hydration=
+-sleep-do-gloria-g2mff?lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_new=
+sletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=
+=3DREDACTED&amp;trk=3Deml-email_series_follow_newsletter_02-newsletter_conten=
+t_preview-0-readmore_button_&amp;trkEmail=3Deml-email_series_follow_newslette=
+r_02-newsletter_content_preview-0-readmore_button_-null-svmihh~mrnn6x3f~26-nu=
+ll-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" tabindex=3D"-1" aria-=
+hidden=3D"true" class=3D"no-underline" style=3D"color: #0a66c2; cursor: point=
+er; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 1=
+00%; -ms-text-size-adjust: 100%; text-decoration-line: none; width: 100%;"> <=
+span class=3D"no-underline text-color-brand" style=3D"color: #0a66c2; text-de=
+coration-line: none;"> Keep reading on LinkedIn </span> </a> </td> </tr> </tb=
+ody> </table> </a> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table=
+> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </t=
+body> </table> </div> </td> </tr> <tr> <td class=3D"bg-color-background-canva=
+s p-3" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; m=
+so-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f3f2f0; paddi=
+ng: 24px;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspac=
+ing=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"text-xs" style=3D"-webkit=
+-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt; font-size: 12px;"> <tbody> <tr> <td class=3D"pb-1 m-0" =
+data-test-id=3D"email-footer__intended" style=3D"-webkit-text-size-adjust: 10=
+0%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;=
+ margin: 0px; padding-bottom: 8px;"> This email was intended for David Whitti=
+ngton (Mentor | Coach | Community Advocate | Helping Professionals Build Weal=
+th Through Health | Tranont Associate) </td> </tr> <tr> <td class=3D"pb-1 m-0=
+" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-ta=
+ble-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;"> <=
+a href=3D"https://www.linkedin.com/help/linkedin/answer/4788?lang=3Den&amp;li=
+pi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%3BOQ9TKoBHS3mG=
+tracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-=
+email_series_follow_newsletter_02-SecurityHelp-0-footerglimmer&amp;trkEmail=
+=3Deml-email_series_follow_newsletter_02-SecurityHelp-0-footerglimmer-null-sv=
+mihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" cl=
+ass=3D"text-inherit underline" style=3D"cursor: pointer; display: inline-bloc=
+k; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjus=
+t: 100%; color: inherit; text-decoration-line: underline;">Learn why we inclu=
+ded this.</a> </td> </tr> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-text-s=
+ize-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tabl=
+e-rspace: 0pt; margin: 0px; padding-bottom: 8px;">You are receiving LinkedIn =
+notification emails. Others can see that you are a subscriber.</td> </tr> <tr=
+> <td class=3D"pb-1 m-0" style=3D"-webkit-text-size-adjust: 100%; -ms-text-si=
+ze-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; p=
+adding-bottom: 8px;"> <a href=3D"https://www.linkedin.com/series-notification=
+s/?action=3Dunsubscribe&amp;memberToken=3DADoAAGgUdhUBY9s6bpkNig5c-dy10EcpvIE=
+TS1c&amp;newsletterId=3D7074754920800735232&amp;newsletterTitle=3DWellness 10=
+1=C2=AE&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_series_follow_newsletter_02%=
+3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=REDACTED&amp;midSig=REDACTED&=
+amp;ek=3Demail_series_follow_newsletter_02&amp;e=3Dsvmihh-mrnn6x3f-26&amp;eid=
+=3Dsvmihh-mrnn6x3f-26&amp;m=3Dunsubscribe&amp;ts=3DfooterGlimmer&amp;li=3D0&a=
+mp;t=3Dplh" target=3D"_blank" class=3D"text-inherit underline" style=3D"curso=
+r: pointer; display: inline-block; text-decoration: none; -webkit-text-size-a=
+djust: 100%; -ms-text-size-adjust: 100%; color: inherit; text-decoration-line=
+: underline;">Unsubscribe</a> =C2=A0=C2=A0=C2=B7=C2=A0=C2=A0 <a href=3D"https=
+://www.linkedin.com/help/linkedin/answer/67?lang=3Den&amp;lipi=3Durn%3Ali%3Ap=
+age%3Aemail_email_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&=
+amp;midToken=REDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_series_foll=
+ow_newsletter_02-help-0-footerglimmer&amp;trkEmail=3Deml-email_series_follow_=
+newsletter_02-help-0-footerglimmer-null-svmihh~mrnn6x3f~26-null-null&amp;eid=
+=3Dsvmihh-mrnn6x3f-26" target=3D"_blank" data-test-help-link class=3D"text-in=
+herit underline" style=3D"cursor: pointer; display: inline-block; text-decora=
+tion: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color=
+: inherit; text-decoration-line: underline;">Help</a> </td> </tr> <tr> <td cl=
+ass=3D"pb-1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 1=
+00%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 8px;"> <a =
+href=3D"https://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_em=
+ail_series_follow_newsletter_02%3BOQ9TKoBHS3mGtracRxi5gQ%3D%3D&amp;midToken=
+=3DREDACTED&amp;midSig=REDACTED&amp;trk=3Deml-email_series_follow_newslette=
+r_02-footer-0-logoGlimmer&amp;trkEmail=3Deml-email_series_follow_newsletter_0=
+2-footer-0-logoGlimmer-null-svmihh~mrnn6x3f~26-null-null&amp;eid=3Dsvmihh-mrn=
+n6x3f-26" target=3D"_blank" style=3D"color: #0a66c2; cursor: pointer; display=
+: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-te=
+xt-size-adjust: 100%;"> <img src=3D"https://static.licdn.com/aero-v1/sc/h/9eh=
+e6n39fa07dc5edzv0rla4e" alt=3D"LinkedIn" class=3D"block h-[14px] w-[56px] ima=
+ge-rendering-crisp" style=3D"outline: none; text-decoration: none; image-rend=
+ering: -moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering: -w=
+ebkit-optimize-contrast; image-rendering: crisp-edges; -ms-interpolation-mode=
+: nearest-neighbor; display: block; height: 14px; width: 56px;" width=3D"56" =
+height=3D"14"> </a> </td> </tr> <tr> <td data-test-copyright-text style=3D"-w=
+ebkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt;"> =C2=A9 2026 LinkedIn Corporation, 1&zwnj;000 Wes=
+t Maude Avenue, Sunnyvale, CA 94085. <span data-test-trademarks-text> LinkedI=
+n and the LinkedIn logo are registered trademarks of LinkedIn. </span> </td> =
+</tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </=
+table> <img alt role=3D"presentation" src=3D"https://www.linkedin.com/emimp/i=
+p_YzNadGFXaG9MVzF5Ym00MmVETm1MVEkyOlpXMWhhV3hmYzJWeWFXVnpYMlp2Ykd4dmQxOXVaWGR=
+6YkdWMGRHVnlYekF5OmRYSnVPbXhwT214cGJtdGxaRWx1UVhKMGFXTnNaVG8zTkRnek5UTXhNak0y=
+T1RZME1UVTFNemt6.gif" style=3D"outline: none; text-decoration: none; -ms-inte=
+rpolation-mode: bicubic; width: 1px; height: 1px;" width=3D"1" height=3D"1"> =
+</body> </html>
+
+------=_Part_84251184_388745025.1784214540043--
+

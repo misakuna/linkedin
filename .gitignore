@@ -1,0 +1,50 @@
+# Secrets — NEVER commit. See .env.example for the required keys.
+.env
+*.pem
+token.json
+credentials.json
+
+# Unscrubbed source emails straight out of David's mailbox. The scrubbed,
+# committable copies live in tests/fixtures/. These originals still contain his
+# real address and LinkedIn's per-recipient signed tokens — keep them local.
+docs/
+
+# Session transcripts dropped in the repo root while working. They quote code,
+# real contact names and mailbox addresses verbatim — same reasoning as docs/.
+recall-*.txt
+
+# Screenshots shared while debugging setup. They are photos of live mail and
+# console screens — addresses, settings, sometimes tokens in view.
+IMG_*.HEIC
+IMG_*.heic
+IMG_*.PNG
+IMG_*.jpg
+IMG_*.jpeg
+Screenshot*.png
+
+# Local database + runtime state (production lives on a mounted volume)
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# macOS
+.DS_Store
+._*
+
+# Internal rules + engagement notes. Names the client relationship, pricing
+# posture and open business decisions — stays on the build machine, never in a
+# repo an outside collaborator can read.
+RULES.md
+
+# Claude Code local settings — machine-specific paths, not for sharing.
+.claude/

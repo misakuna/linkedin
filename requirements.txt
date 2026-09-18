@@ -1,0 +1,25 @@
+# Runtime dependencies. Pinned to minor versions so a Railway/Render rebuild
+# months from now behaves like today's build.
+#
+# NOTE: there is deliberately no browser-automation library here (no
+# Playwright, Selenium, Puppeteer). Nothing here may contact linkedin.com —
+# see the compliance rules in README.md.
+
+fastapi~=0.115
+uvicorn[standard]~=0.32
+jinja2~=3.1
+itsdangerous~=2.2
+
+apscheduler~=3.10
+pyyaml~=6.0
+pydantic~=2.9
+python-dotenv~=1.0
+httpx~=0.27
+
+# Claude API — drafting
+anthropic~=0.40
+
+# Gmail API — READ-ONLY notification reading
+google-api-python-client~=2.150
+google-auth~=2.36
+google-auth-oauthlib~=1.2
