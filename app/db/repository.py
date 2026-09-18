@@ -64,6 +64,7 @@ def _row_to_draft(row: sqlite3.Row) -> Draft:
         linkedin_url=row["linkedin_url"],
         source_ref=row["source_ref"],
         scheduled_for=_parse_dt(row["scheduled_for"]),
+        publish_claimed_at=_parse_dt(row["publish_claimed_at"]),
         created_at=datetime.fromisoformat(row["created_at"]),
         updated_at=datetime.fromisoformat(row["updated_at"]),
     )
@@ -265,18 +266,39 @@ class DraftRepository:
             )
             return cursor.rowcount == 1
 
-    def release_publish_claim(self, draft_id: int) -> None:
-        """Give the claim back, for when we know the publisher was never called.
+    def release_publish_claim(self, draft_id: int) -> bool:
+        """Give the claim back so the post can be published again.
 
-        Only safe where no request left the process — a missing credential, a
-        refused precondition. Never after a request that may have reached the
-        publisher.
+        Two callers. The publisher path uses it when it knows no request left
+        the process — a missing credential, a connection never made. A person
+        uses it, through the dashboard, to release a post whose publisher call
+        left us unsure: that is the deliberate human decision to risk a second
+        copy rather than leave the post unpublished forever.
+
+        Returns whether a claim was actually released, so a caller can tell the
+        difference between freeing a stuck post and doing nothing at all.
         """
         with connect(self.db_path) as connection:
-            connection.execute(
-                "UPDATE drafts SET publish_claimed_at = NULL, updated_at = ? WHERE id = ?",
+            cursor = connection.execute(
+                """
+                UPDATE drafts SET publish_claimed_at = NULL, updated_at = ?
+                WHERE id = ? AND publish_claimed_at IS NOT NULL
+                """,
                 (_now().isoformat(), draft_id),
             )
+            return cursor.rowcount == 1
+
+    def list_stuck_publishing(self) -> list[Draft]:
+        """Approved posts holding a claim: published or not, nobody can say.
+
+        These move only when a person decides, so something has to be able to
+        find them — the dashboard, and the boot summary.
+        """
+        return [
+            draft
+            for draft in self.list_by_status([DraftStatus.APPROVED])
+            if draft.is_stuck_publishing
+        ]
 
     def update_body(self, draft_id: int, body: str) -> Draft:
         """Replace a draft's text — David edited it, or Claude rewrote it."""

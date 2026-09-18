@@ -129,7 +129,13 @@ def post_to_json(draft: Draft, tz: ZoneInfo, *, now: datetime | None = None) -> 
         if draft.scheduled_for
         else "soon",
         "status": draft.status.value,
-        "status_label": _POST_STATUS_LABELS.get(draft.status, "Waiting for your OK"),
+        "status_label": "Didn't finish sending"
+        if draft.is_stuck_publishing
+        else _POST_STATUS_LABELS.get(draft.status, "Waiting for your OK"),
+        # A stuck post looks approved and behaves like nothing. Saying so is the
+        # difference between David waiting for a post that will never go out and
+        # David tapping the button to send it.
+        "needs_another_try": draft.is_stuck_publishing,
     }
 
 

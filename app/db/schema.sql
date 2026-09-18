@@ -111,7 +111,12 @@ CREATE TABLE IF NOT EXISTS alerts_sent (
 --
 -- Twilio sends a unique MessageSid per message, so recording it and refusing
 -- repeats is what turns a signed request into a single-use one.
+-- NOT NULL is load-bearing, not decoration: SQLite does not imply it for a
+-- TEXT PRIMARY KEY, so without it NULL ids would insert over and over without
+-- ever colliding, and every replay would be waved through. The webhook already
+-- rejects a missing id, but this is the constraint that makes the guard hold
+-- even if that check is ever moved or removed.
 CREATE TABLE IF NOT EXISTS sms_messages_seen (
-    message_sid TEXT PRIMARY KEY,
+    message_sid TEXT PRIMARY KEY NOT NULL,
     seen_at     TEXT NOT NULL
 );

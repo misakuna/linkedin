@@ -147,7 +147,15 @@ async def incoming_sms(request: Request) -> Response:
         if outcome.approved and outcome.draft:
             services.posting.publish(outcome.draft.id)
     except Exception:
-        logger.exception("Couldn't act on David's text.")
+        # The id was consumed above, so Twilio re-delivering this message will
+        # be turned away as a replay. Say so plainly: in the log this would
+        # otherwise look like an ordinary duplicate rather than a reply David
+        # sent that never took effect. He can still use the dashboard.
+        logger.exception(
+            "Couldn't act on David's text (MessageSid %s). That message is already "
+            "marked as handled, so a re-delivery of it will be ignored.",
+            message_sid,
+        )
         return _twiml("Something didn't work — text support.")
 
     if not outcome.understood:

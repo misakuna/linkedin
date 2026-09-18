@@ -12,6 +12,7 @@ import sys
 import time
 from datetime import date, datetime, timedelta, timezone
 
+import httpx
 import pytest
 
 from app.approvals.service import ApprovalService
@@ -20,7 +21,12 @@ from app.config import AppConfig
 from app.db import DraftKind, DraftRepository, DraftStatus
 from app.db.models import InvalidTransitionError
 from app.posting.drafting import theme_for
-from app.posting.publisher import MockPublisher, NotSentError, PublishReceipt
+from app.posting.publisher import (
+    BufferPublisher,
+    MockPublisher,
+    NotSentError,
+    PublishReceipt,
+)
 from app.posting.schedule import is_posting_day, next_posting_days, publish_time_for
 from app.posting.service import PostingService, source_ref_for
 
@@ -511,3 +517,149 @@ def test_a_stale_read_cannot_forge_the_audit_trail(
     events = [(e.from_status, e.to_status) for e in repository.events(draft.id)]
     for earlier, later in zip(events, events[1:]):
         assert earlier[1] == later[0], f"audit trail jumps: {earlier} then {later}"
+
+
+# -- which publisher failures are safe to retry -----------------------------
+
+
+@pytest.mark.parametrize(
+    "exception",
+    [
+        httpx.ReadTimeout("timed out waiting for Buffer"),
+        httpx.ReadError("connection dropped while reading"),
+        httpx.WriteError("connection dropped while writing"),
+        httpx.RemoteProtocolError("peer closed without a complete response"),
+    ],
+)
+def test_a_failure_after_the_request_went_out_is_never_retried(
+    config: AppConfig, monkeypatch: pytest.MonkeyPatch, exception: Exception
+) -> None:
+    """These all happen AFTER the post has left for Buffer.
+
+    They are httpx.RequestError subclasses, like the connect errors, but the
+    request is already on the wire — Buffer may hold the post. Mapping the whole
+    RequestError family to NotSentError is what let the retry sweep publish a
+    slow-but-successful post a second time.
+    """
+    monkeypatch.setenv("BUFFER_TOKEN", "token")
+    monkeypatch.setenv("BUFFER_PROFILE_ID", "profile")
+    monkeypatch.setattr(httpx, "post", lambda *a, **k: (_ for _ in ()).throw(exception))
+
+    publisher = BufferPublisher(config)
+    # None, not NotSentError: the caller must keep its claim.
+    assert publisher.queue(text="a post", publish_at=datetime.now(timezone.utc)) is None
+
+
+@pytest.mark.parametrize(
+    "exception",
+    [httpx.ConnectError("refused"), httpx.ConnectTimeout("timed out"), httpx.PoolTimeout("no pool")],
+)
+def test_a_failure_before_the_request_went_out_is_retried(
+    config: AppConfig, monkeypatch: pytest.MonkeyPatch, exception: Exception
+) -> None:
+    """No connection was made, so nothing could have been posted."""
+    monkeypatch.setenv("BUFFER_TOKEN", "token")
+    monkeypatch.setenv("BUFFER_PROFILE_ID", "profile")
+    monkeypatch.setattr(httpx, "post", lambda *a, **k: (_ for _ in ()).throw(exception))
+
+    publisher = BufferPublisher(config)
+    with pytest.raises(NotSentError):
+        publisher.queue(text="a post", publish_at=datetime.now(timezone.utc))
+
+
+def test_a_timed_out_post_is_not_sent_again_by_the_sweep(
+    config: AppConfig, repository: DraftRepository, approvals: ApprovalService,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """End to end: the case that reopened double-publish.
+
+    Buffer receives the post and answers too slowly. The whole point is that the
+    sweep must not send it again.
+    """
+    monkeypatch.setenv("BUFFER_TOKEN", "token")
+    monkeypatch.setenv("BUFFER_PROFILE_ID", "profile")
+
+    sent: list[str] = []
+
+    def slow_buffer(*args, **kwargs):
+        sent.append(kwargs["data"]["text"])
+        raise httpx.ReadTimeout("Buffer took too long to answer")
+
+    monkeypatch.setattr(httpx, "post", slow_buffer)
+
+    service = PostingService(
+        config, repository, approvals,
+        drafter=StubDrafter(), publisher=BufferPublisher(config),
+    )
+    draft = service.prepare(TUESDAY).draft
+    repository.transition(draft.id, DraftStatus.APPROVED)
+
+    assert not service.publish(draft.id)
+    assert len(sent) == 1
+
+    assert service.retry_unqueued() == 0
+    assert len(sent) == 1, "the post was sent to Buffer a second time"
+
+
+def test_a_stuck_post_is_visible_and_recoverable(
+    config: AppConfig, repository: DraftRepository, approvals: ApprovalService
+) -> None:
+    """An ambiguous publishing failure must not become a silent dead end.
+
+    The post keeps its claim so the sweep can't duplicate it, which means only a
+    person can move it. That is fine, but only if a person can SEE it and act on
+    it — otherwise the post sits looking approved and never goes out.
+    """
+
+    class Ambiguous:
+        provider = "ambiguous"
+
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def queue(self, *, text, publish_at):
+            self.calls += 1
+            return None
+
+    publisher = Ambiguous()
+    service = PostingService(
+        config, repository, approvals, drafter=StubDrafter(), publisher=publisher
+    )
+    draft = service.prepare(TUESDAY).draft
+    repository.transition(draft.id, DraftStatus.APPROVED)
+    assert not service.publish(draft.id)
+
+    stuck = repository.get(draft.id)
+    assert stuck.is_stuck_publishing
+    assert [d.id for d in repository.list_stuck_publishing()] == [draft.id]
+
+    # Still off-limits to anything automatic.
+    assert service.retry_unqueued() == 0
+    assert publisher.calls == 1
+
+    # A person releasing it is what lets it go out.
+    assert repository.release_publish_claim(draft.id) is True
+    assert not repository.get(draft.id).is_stuck_publishing
+    assert service.publish(draft.id) is False  # same broken publisher
+    assert publisher.calls == 2
+
+
+def test_a_successful_publish_leaves_no_claim_behind(
+    posting: PostingService, repository: DraftRepository
+) -> None:
+    """Otherwise publish_claimed_at can't be trusted to mean "stuck"."""
+    draft = posting.prepare(TUESDAY).draft
+    assert posting.handle_sms_reply("yes")
+
+    published = repository.get(draft.id)
+    assert published.status is DraftStatus.DONE
+    assert published.publish_claimed_at is None
+    assert not published.is_stuck_publishing
+    assert repository.list_stuck_publishing() == []
+
+
+def test_releasing_a_claim_nobody_holds_reports_it(repository: DraftRepository) -> None:
+    """A no-op must be distinguishable from actually freeing a post."""
+    draft = repository.create(kind=DraftKind.POST, body="x", source_ref="post:unclaimed")
+    assert repository.release_publish_claim(draft.id) is False
+    assert repository.release_publish_claim(999999) is False

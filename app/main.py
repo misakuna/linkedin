@@ -129,6 +129,19 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     waiting = repository.count_by_status().get(DraftStatus.PENDING_APPROVAL, 0)
     logger.info("Ready. %s item(s) are waiting on David right now.", waiting)
 
+    # Nothing moves these on its own, so an operator reading the log needs to
+    # know they exist. Silence here would mean a post sitting unpublished for
+    # as long as nobody happens to look at the dashboard.
+    stuck = repository.list_stuck_publishing()
+    if stuck:
+        logger.warning(
+            "%s post(s) stopped partway through being sent and are waiting on a "
+            "decision: %s. David can tap 'Yes, post it' again to send one, or skip "
+            "it. Check the partner first — it may already have gone out.",
+            len(stuck),
+            ", ".join(f"#{draft.id}" for draft in stuck),
+        )
+
     try:
         yield
     finally:

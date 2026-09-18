@@ -117,11 +117,24 @@ class Draft:
     linkedin_url: str | None = None
     source_ref: str | None = None
     scheduled_for: datetime | None = None
+    publish_claimed_at: datetime | None = None
 
     @property
     def is_open(self) -> bool:
         """True while this draft is still waiting on David or on a job."""
         return self.status in OPEN_STATUSES
+
+    @property
+    def is_stuck_publishing(self) -> bool:
+        """Approved, claimed for publishing, and going nowhere on its own.
+
+        Reached when a publisher call left us unable to say whether the post
+        went out. The claim is kept so the retry sweep can't send a second copy,
+        which means nothing will move this post without a person deciding. It
+        still shows on the dashboard as approved, so without this flag the state
+        is invisible: David sees a post that looks fine and never publishes.
+        """
+        return self.status is DraftStatus.APPROVED and self.publish_claimed_at is not None
 
 
 @dataclass(frozen=True, slots=True)

@@ -285,6 +285,22 @@ def approve_post(draft_id: int, request: Request) -> dict:
         draft = state.repository.get(draft_id)
         if draft.kind is not DraftKind.POST:
             raise HTTPException(status_code=400, detail="not a post")
+
+        if draft.is_stuck_publishing:
+            # A previous attempt reached the publisher and we never learned the
+            # outcome, so the post kept its claim and no job will touch it.
+            # Tapping the button again is David saying "it didn't go out, send
+            # it" — the one decision that can free it, and one only a person can
+            # make, since the alternative risk is a duplicate under his name.
+            logger.warning(
+                "Post #%s was stuck after an unclear publishing attempt. David asked "
+                "for it to be sent again.",
+                draft_id,
+            )
+            state.repository.release_publish_claim(draft_id)
+            state.services.posting.publish(draft_id)
+            return {"ok": True}
+
         state.services.posting.approve_and_publish(draft_id)
     except HTTPException:
         raise

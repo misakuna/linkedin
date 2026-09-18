@@ -182,6 +182,12 @@ class PostingService:
         except InvalidTransitionError:
             logger.exception("Post #%s was scheduled but its status couldn't be updated.", draft_id)
             return False
+
+        # The claim did its job. Clearing it keeps `publish_claimed_at` meaning
+        # exactly one thing — "this post is stuck" — so the dashboard and the
+        # boot summary can trust it. `done` is terminal, so nothing can be
+        # republished by this.
+        self._repository.release_publish_claim(draft_id)
         return True
 
     def handle_sms_reply(self, text: str, *, from_number: str | None = None) -> bool:

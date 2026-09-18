@@ -125,23 +125,32 @@ class BufferPublisher:
             )
             response.raise_for_status()
             payload = response.json()
-        except httpx.RequestError as exc:
-            # The request never completed — connection refused, DNS failure,
-            # timeout before the server answered. Nothing was posted, so this
-            # is safe to retry.
+        except (httpx.ConnectError, httpx.ConnectTimeout, httpx.PoolTimeout) as exc:
+            # These three, and only these three, are raised before any byte of
+            # the request is written: no connection was established, or none was
+            # free in the pool. Nothing reached Buffer, so a retry cannot
+            # duplicate the post.
+            #
+            # Not `httpx.RequestError`. That is the base class for the whole
+            # family, and most of its members — ReadTimeout, ReadError,
+            # WriteError, RemoteProtocolError — happen only AFTER the request
+            # has gone out. A slow-but-successful Buffer raises ReadTimeout with
+            # David's post already queued on their side; treating that as "never
+            # sent" is what publishes it twice.
             logger.warning(
-                "Couldn't reach Buffer to schedule David's post (%s). It stays "
-                "approved and will be retried.",
+                "Couldn't reach Buffer to schedule David's post (%s). Nothing was "
+                "sent, so it stays approved and will be retried.",
                 exc.__class__.__name__,
             )
             raise NotSentError(str(exc)) from exc
         except Exception:
-            # Buffer answered and something went wrong reading that answer. The
-            # post may well have been accepted, so this must NOT be retried
-            # automatically.
+            # The request went out and then something went wrong: a read that
+            # timed out, a connection dropped mid-flight, an error status, an
+            # unreadable body. Buffer may already hold the post, so this must
+            # NOT be retried automatically.
             logger.exception(
-                "Buffer answered but the response couldn't be read. Not retrying "
-                "automatically, in case the post was accepted."
+                "David's post went to Buffer but we never got a usable answer. "
+                "Not retrying automatically, in case Buffer accepted it."
             )
             return None
 
