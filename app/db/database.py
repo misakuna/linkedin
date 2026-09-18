@@ -54,6 +54,7 @@ def connect(db_path: Path) -> Iterator[sqlite3.Connection]:
 _ADDED_COLUMNS: tuple[tuple[str, str, str], ...] = (
     ("drafts", "headline", "TEXT"),
     ("drafts", "notification_type", "TEXT"),
+    ("drafts", "publish_claimed_at", "TEXT"),
 )
 
 

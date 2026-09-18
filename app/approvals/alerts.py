@@ -192,3 +192,12 @@ class AlertService:
         self._alerts.record(kind, when=now)
         logger.info("Texted David: %s", body.splitlines()[0])
         return True
+
+    def claim_inbound_message(self, message_sid: str) -> bool:
+        """Whether this inbound text is new, and so may be acted on.
+
+        False means we have handled it before. The webhook needs this because a
+        Twilio signature never expires: one captured copy of David's "YES" could
+        otherwise be replayed to approve every post queued after it.
+        """
+        return self._alerts.claim_message(message_sid)

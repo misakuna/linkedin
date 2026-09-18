@@ -180,17 +180,45 @@ class DraftRepository:
 
         Raises InvalidTransitionError if the lifecycle in models.py forbids the
         move — notably, nothing can skip David's approval.
-        """
-        draft = self.get(draft_id)
-        if new_status not in transitions_for(draft.kind)[draft.status]:
-            raise InvalidTransitionError(draft.status, new_status, draft.kind)
 
+        Read, check and write happen in ONE transaction, and the UPDATE names
+        the status it expects to replace. Two callers can genuinely reach the
+        same row at the same moment — David taps approve on the dashboard while
+        his texted YES arrives at the webhook — and without both of those, each
+        would read `pending_approval`, each would pass this check, and both
+        would write. The loser of that race raises rather than silently
+        overwriting the winner, so `draft_events` keeps a history that happened.
+        """
         now = _now()
         with connect(self.db_path) as connection:
-            connection.execute(
-                "UPDATE drafts SET status = ?, updated_at = ? WHERE id = ?",
-                (new_status.value, now.isoformat(), draft_id),
+            # IMMEDIATE takes the write lock now rather than at the first
+            # UPDATE, so a concurrent transition cannot slip between the SELECT
+            # below and the UPDATE that follows it.
+            connection.execute("BEGIN IMMEDIATE")
+            row = connection.execute(
+                "SELECT * FROM drafts WHERE id = ?", (draft_id,)
+            ).fetchone()
+            if row is None:
+                raise DraftNotFoundError(draft_id)
+            draft = _row_to_draft(row)
+
+            if new_status not in transitions_for(draft.kind)[draft.status]:
+                raise InvalidTransitionError(draft.status, new_status, draft.kind)
+
+            cursor = connection.execute(
+                "UPDATE drafts SET status = ?, updated_at = ? WHERE id = ? AND status = ?",
+                (new_status.value, now.isoformat(), draft_id, draft.status.value),
             )
+            if cursor.rowcount != 1:
+                # Someone moved it between our read and our write. Re-read to
+                # report the status it actually holds now.
+                current = _row_to_draft(
+                    connection.execute(
+                        "SELECT * FROM drafts WHERE id = ?", (draft_id,)
+                    ).fetchone()
+                )
+                raise InvalidTransitionError(current.status, new_status, current.kind)
+
             connection.execute(
                 """
                 INSERT INTO draft_events (draft_id, from_status, to_status, note, created_at)
@@ -202,6 +230,53 @@ class DraftRepository:
         sentence = _TRANSITION_SENTENCES[new_status].format(kind=draft.kind.value, id=draft_id)
         logger.info("%s%s", sentence, f" ({note})" if note else "")
         return self.get(draft_id)
+
+    def claim_for_publishing(self, draft_id: int) -> bool:
+        """Win the exclusive right to hand this post to the publisher.
+
+        True means the caller claimed it and must proceed; False means someone
+        else already has and the caller must not call the publisher.
+
+        The whole check lives in the WHERE clause, so SQLite decides the winner
+        rather than application code reading and then writing. Without it, the
+        30-minute retry sweep can fire while the dashboard's approve request is
+        still inside a 30-second Buffer call: both see `approved`, both publish,
+        and David's post appears on LinkedIn twice.
+
+        Deliberately not released on failure. A post whose publisher call died
+        mid-flight stays claimed, so the sweep leaves it alone rather than
+        risking a second copy — a post that needs a human nudge beats a
+        duplicate under David's name. `release_publish_claim` exists for the
+        one case where we know no call was made.
+        """
+        with connect(self.db_path) as connection:
+            cursor = connection.execute(
+                """
+                UPDATE drafts SET publish_claimed_at = ?, updated_at = ?
+                WHERE id = ? AND status = ? AND kind = ? AND publish_claimed_at IS NULL
+                """,
+                (
+                    _now().isoformat(),
+                    _now().isoformat(),
+                    draft_id,
+                    DraftStatus.APPROVED.value,
+                    DraftKind.POST.value,
+                ),
+            )
+            return cursor.rowcount == 1
+
+    def release_publish_claim(self, draft_id: int) -> None:
+        """Give the claim back, for when we know the publisher was never called.
+
+        Only safe where no request left the process — a missing credential, a
+        refused precondition. Never after a request that may have reached the
+        publisher.
+        """
+        with connect(self.db_path) as connection:
+            connection.execute(
+                "UPDATE drafts SET publish_claimed_at = NULL, updated_at = ? WHERE id = ?",
+                (_now().isoformat(), draft_id),
+            )
 
     def update_body(self, draft_id: int, body: str) -> Draft:
         """Replace a draft's text — David edited it, or Claude rewrote it."""

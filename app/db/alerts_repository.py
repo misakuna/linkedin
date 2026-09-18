@@ -14,6 +14,7 @@ not something that can reach LinkedIn.
 
 from __future__ import annotations
 
+import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -56,3 +57,25 @@ class AlertsRepository:
                 connection.execute("DELETE FROM alerts_sent")
             else:
                 connection.execute("DELETE FROM alerts_sent WHERE kind = ?", (kind,))
+
+    def claim_message(self, message_sid: str) -> bool:
+        """Record an inbound Twilio message id, first caller only.
+
+        True means this message is new and may be acted on. False means it has
+        been seen before and must be ignored.
+
+        This is what makes a signed Twilio request single-use. The signature
+        covers the URL and parameters with no nonce or timestamp, so a captured
+        request stays valid forever, and each replay would approve the next post
+        waiting on David. The INSERT either wins or raises on the primary key —
+        no read-then-write, so two copies arriving together cannot both win.
+        """
+        with connect(self.db_path) as connection:
+            try:
+                connection.execute(
+                    "INSERT INTO sms_messages_seen (message_sid, seen_at) VALUES (?, ?)",
+                    (message_sid, datetime.now(timezone.utc).isoformat()),
+                )
+            except sqlite3.IntegrityError:
+                return False
+        return True

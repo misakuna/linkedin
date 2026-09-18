@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import time
 from datetime import date, datetime, timedelta, timezone
 
 import pytest
@@ -17,8 +18,9 @@ from app.approvals.service import ApprovalService
 from app.approvals.sms import MockSmsSender, shorten_for_sms
 from app.config import AppConfig
 from app.db import DraftKind, DraftRepository, DraftStatus
+from app.db.models import InvalidTransitionError
 from app.posting.drafting import theme_for
-from app.posting.publisher import MockPublisher
+from app.posting.publisher import MockPublisher, NotSentError, PublishReceipt
 from app.posting.schedule import is_posting_day, next_posting_days, publish_time_for
 from app.posting.service import PostingService, source_ref_for
 
@@ -292,8 +294,10 @@ def test_a_publisher_outage_delays_rather_than_loses(
     config: AppConfig, repository: DraftRepository, approvals: ApprovalService
 ) -> None:
     class BrokenPublisher:
+        """An outage: nothing reaches the partner, so retrying cannot duplicate."""
+
         def queue(self, *, text, publish_at):
-            return None
+            raise NotSentError("connection refused")
 
     service = PostingService(
         config, repository, approvals, drafter=StubDrafter(), publisher=BrokenPublisher()
@@ -310,8 +314,10 @@ def test_the_retry_sweep_picks_up_a_stuck_post(
     publisher: MockPublisher,
 ) -> None:
     class BrokenPublisher:
+        """An outage: nothing reaches the partner, so retrying cannot duplicate."""
+
         def queue(self, *, text, publish_at):
-            return None
+            raise NotSentError("connection refused")
 
     broken = PostingService(
         config, repository, approvals, drafter=StubDrafter(), publisher=BrokenPublisher()
@@ -398,3 +404,110 @@ def test_sms_shortening_keeps_texts_readable() -> None:
     assert shorten_for_sms("a\n\n  b") == "a b"
     assert len(shorten_for_sms("x" * 900)) <= 320
     assert shorten_for_sms("x" * 900).endswith("…")
+
+
+# -- concurrency: the same post reached by two callers at once --------------
+
+
+def test_two_callers_cannot_both_publish_one_post(
+    config: AppConfig, repository: DraftRepository, approvals: ApprovalService
+) -> None:
+    """The retry sweep firing during a slow publish must not post twice.
+
+    The publisher call can take 30 seconds, and the sweep, the SMS webhook and
+    the dashboard button can all be inside publish() for the same post. Before
+    the claim, each read `approved`, each passed the status check, and Buffer
+    was called twice — David's post appeared on LinkedIn twice.
+    """
+    import threading
+
+    calls: list[str] = []
+    lock = threading.Lock()
+
+    class SlowPublisher:
+        provider = "slow"
+
+        def queue(self, *, text, publish_at):
+            with lock:
+                calls.append(text)
+            time.sleep(0.2)  # a publisher call is not instant
+            return PublishReceipt(
+                provider="slow", reference=f"ref-{len(calls)}", scheduled_for=publish_at
+            )
+
+    service = PostingService(
+        config, repository, approvals, drafter=StubDrafter(), publisher=SlowPublisher()
+    )
+    draft = service.prepare(TUESDAY).draft
+    repository.transition(draft.id, DraftStatus.APPROVED)
+
+    results: list[bool] = []
+    start = threading.Barrier(2)
+
+    def publish() -> None:
+        start.wait()
+        results.append(service.publish(draft.id))
+
+    threads = [threading.Thread(target=publish) for _ in range(2)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+    assert len(calls) == 1, "the post reached the publisher more than once"
+    assert results.count(True) == 1
+    assert repository.get(draft.id).status is DraftStatus.DONE
+
+
+def test_an_ambiguous_publish_failure_is_not_retried(
+    config: AppConfig, repository: DraftRepository, approvals: ApprovalService
+) -> None:
+    """A publisher that answered but gave no receipt may have accepted the post.
+
+    Retrying that would risk a second copy, so the sweep must leave it alone
+    even though it is still `approved`. The opposite of the outage case above.
+    """
+
+    class AmbiguousPublisher:
+        provider = "ambiguous"
+
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def queue(self, *, text, publish_at):
+            self.calls += 1
+            return None  # contacted, but no usable receipt
+
+    publisher = AmbiguousPublisher()
+    service = PostingService(
+        config, repository, approvals, drafter=StubDrafter(), publisher=publisher
+    )
+    draft = service.prepare(TUESDAY).draft
+
+    assert not service.handle_sms_reply("yes")
+    assert publisher.calls == 1
+
+    assert service.retry_unqueued() == 0, "an ambiguous failure must not be retried"
+    assert publisher.calls == 1, "the post was sent to the publisher a second time"
+    assert repository.get(draft.id).status is DraftStatus.APPROVED
+
+
+def test_a_stale_read_cannot_forge_the_audit_trail(
+    repository: DraftRepository,
+) -> None:
+    """transition() must refuse a move the row's real status doesn't allow.
+
+    Two callers reading `pending_approval` at the same moment used to both pass
+    validation and both write, leaving draft_events claiming a history that
+    never happened.
+    """
+    draft = repository.create(kind=DraftKind.POST, body="x", source_ref="post:2026-09-09")
+    repository.transition(draft.id, DraftStatus.PENDING_APPROVAL)
+    repository.transition(draft.id, DraftStatus.REJECTED)
+
+    with pytest.raises(InvalidTransitionError):
+        repository.transition(draft.id, DraftStatus.DONE)
+
+    events = [(e.from_status, e.to_status) for e in repository.events(draft.id)]
+    for earlier, later in zip(events, events[1:]):
+        assert earlier[1] == later[0], f"audit trail jumps: {earlier} then {later}"

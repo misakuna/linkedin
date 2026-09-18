@@ -18,6 +18,7 @@ import hashlib
 import hmac
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlencode
+from uuid import uuid4
 
 import pytest
 
@@ -397,14 +398,25 @@ def twilio(app_client, monkeypatch):
     return app_client
 
 
-def post_sms(client, body: str, from_number: str, *, signature: str | None = None):
+def post_sms(
+    client, body: str, from_number: str, *, signature: str | None = None,
+    message_sid: str | None = None,
+):
     """Post a form-encoded message the way Twilio does.
 
     The signature is computed over the DECODED values — that is what Twilio
     hashes and what parse_qsl hands the endpoint. Signing the percent-encoded
     form instead produces a valid-looking signature that never verifies.
+
+    Each call gets a fresh MessageSid unless one is passed, because the endpoint
+    refuses ids it has already acted on. Pass the same id twice to exercise that
+    deliberately.
     """
-    params = {"Body": body, "From": from_number, "MessageSid": "SM_test"}
+    params = {
+        "Body": body,
+        "From": from_number,
+        "MessageSid": message_sid or f"SM_test_{uuid4().hex}",
+    }
     url = "http://testserver/sms/incoming"
     return client.post(
         "/sms/incoming",
@@ -569,3 +581,53 @@ def test_a_retired_model_is_not_retried(config: AppConfig, monkeypatch) -> None:
     model, calls = _gemini(config, monkeypatch, [404])
     assert model.reply(system="s", messages=[{"role": "user", "content": "hi"}]) is None
     assert len(calls) == 1
+
+
+def test_a_replayed_yes_cannot_approve_a_second_post(twilio) -> None:
+    """The attack the signature alone does not stop.
+
+    Twilio signs the URL and the parameters — no nonce, no timestamp — so one
+    captured request stays valid forever. Since a reply always acts on whichever
+    post is oldest, replaying a single YES would walk the queue and publish
+    everything waiting on David.
+    """
+    from app.main import app
+
+    repo = app.state.repository
+    posts = []
+    for index in range(3):
+        post = repo.create(
+            kind=DraftKind.POST, body=f"Post {index}", source_ref=f"post:replay-{index}"
+        )
+        repo.transition(post.id, DraftStatus.PENDING_APPROVAL)
+        posts.append(post)
+
+    captured_sid = "SM_captured_once"
+    first = post_sms(twilio, "YES", DAVIDS_NUMBER, message_sid=captured_sid)
+    assert first.status_code == 200
+
+    # The same signed bytes, sent again and again.
+    for _ in range(2):
+        replay = post_sms(twilio, "YES", DAVIDS_NUMBER, message_sid=captured_sid)
+        assert replay.status_code == 200
+        assert "Already" in replay.text
+
+    statuses = [repo.get(post.id).status for post in posts]
+    assert statuses[0] is not DraftStatus.PENDING_APPROVAL, "the real reply should land"
+    assert statuses[1] is DraftStatus.PENDING_APPROVAL
+    assert statuses[2] is DraftStatus.PENDING_APPROVAL
+
+
+def test_a_text_without_a_message_id_is_refused(twilio) -> None:
+    """No id means no way to tell a first delivery from a replay."""
+    url = "http://testserver/sms/incoming"
+    params = {"Body": "YES", "From": DAVIDS_NUMBER}
+    response = twilio.post(
+        "/sms/incoming",
+        content=urlencode(params),
+        headers={
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-Twilio-Signature": sign(url, params),
+        },
+    )
+    assert response.status_code == 400

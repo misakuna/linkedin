@@ -53,11 +53,27 @@ class PublishReceipt:
         return f"{self.provider} has it queued for {when}"
 
 
+class NotSentError(Exception):
+    """The post definitely did not reach the publisher, so retrying is safe.
+
+    The difference from a None return matters more than it looks. None means
+    "no receipt", which covers both "the request never went out" and "the
+    request went out and something went wrong afterwards" — and those need
+    opposite handling: the first should be retried, the second must not be, or
+    David's post goes up twice. Raise this only where no request left the
+    process, so the retry sweep can tell the two apart.
+    """
+
+
 class Publisher(Protocol):
     """Anything that can schedule an approved post."""
 
     def queue(self, *, text: str, publish_at: datetime) -> PublishReceipt | None:
-        """Schedule a post, or return None if it couldn't be scheduled."""
+        """Schedule a post, or return None if it couldn't be scheduled.
+
+        Raise NotSentError instead when nothing was sent at all — that is the
+        signal that a retry cannot duplicate anything.
+        """
         ...
 
 
@@ -70,11 +86,17 @@ class BufferPublisher:
         self._config = config
 
     def queue(self, *, text: str, publish_at: datetime) -> PublishReceipt | None:
-        """Hand the post to Buffer, returning None on any failure.
+        """Hand the post to Buffer.
 
-        Returning None rather than raising leaves the draft sitting in
-        `approved`, which the retry sweep picks up later. A Buffer outage
-        should delay a post, never lose it.
+        Two kinds of failure, told apart because they need opposite handling:
+
+        - NotSentError — no request reached Buffer. The draft stays approved and
+          the retry sweep picks it up. A Buffer outage should delay a post,
+          never lose it.
+        - None — Buffer was contacted but gave us no usable receipt. It may have
+          accepted the post, so the sweep leaves it alone and David sees it
+          still waiting on his dashboard. A post that needs a nudge beats the
+          same post going out twice.
         """
         import httpx
 
@@ -84,8 +106,9 @@ class BufferPublisher:
             token = env_secrets.buffer_token()
             profile_id = env_secrets.buffer_profile_id()
         except env_secrets.MissingSecretError as exc:
+            # Nothing was sent — we never got as far as building a request.
             logger.error("Can't schedule the post: %s", exc)
-            return None
+            raise NotSentError(str(exc)) from exc
 
         when = _not_in_the_past(publish_at)
 
@@ -102,10 +125,23 @@ class BufferPublisher:
             )
             response.raise_for_status()
             payload = response.json()
+        except httpx.RequestError as exc:
+            # The request never completed — connection refused, DNS failure,
+            # timeout before the server answered. Nothing was posted, so this
+            # is safe to retry.
+            logger.warning(
+                "Couldn't reach Buffer to schedule David's post (%s). It stays "
+                "approved and will be retried.",
+                exc.__class__.__name__,
+            )
+            raise NotSentError(str(exc)) from exc
         except Exception:
+            # Buffer answered and something went wrong reading that answer. The
+            # post may well have been accepted, so this must NOT be retried
+            # automatically.
             logger.exception(
-                "Couldn't reach Buffer to schedule David's post. It stays approved "
-                "and will be retried."
+                "Buffer answered but the response couldn't be read. Not retrying "
+                "automatically, in case the post was accepted."
             )
             return None
 
@@ -113,7 +149,7 @@ class BufferPublisher:
         if reference is None:
             logger.error(
                 "Buffer accepted the request but didn't return an id for the post. "
-                "Treating it as not scheduled so it gets retried."
+                "Not retrying automatically, in case it was scheduled anyway."
             )
             return None
 

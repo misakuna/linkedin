@@ -46,5 +46,7 @@ venv/
 # repo an outside collaborator can read.
 RULES.md
 
-# Claude Code local settings — machine-specific paths, not for sharing.
-.claude/
+# Coverage artifacts
+.coverage
+coverage.xml
+htmlcov/

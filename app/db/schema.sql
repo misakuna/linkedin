@@ -45,6 +45,14 @@ CREATE TABLE IF NOT EXISTS drafts (
     -- For posts: the randomly-sampled publish time (ISO 8601, client tz).
     scheduled_for TEXT,
 
+    -- Set the instant a publisher call is about to be made, and only ever by a
+    -- conditional UPDATE that requires it to be NULL. Three callers can reach
+    -- the same approved post at once — the retry sweep, the SMS webhook and the
+    -- dashboard button — and the publisher call takes up to 30s, so "still
+    -- approved?" is not a safe question to ask before making it. Winning this
+    -- claim is what earns the right to call Buffer.
+    publish_claimed_at TEXT,
+
     created_at    TEXT NOT NULL,
     updated_at    TEXT NOT NULL
 );
@@ -91,4 +99,19 @@ CREATE INDEX IF NOT EXISTS idx_chat_messages_time ON chat_messages (id);
 CREATE TABLE IF NOT EXISTS alerts_sent (
     kind    TEXT PRIMARY KEY,
     sent_at TEXT NOT NULL
+);
+
+-- Twilio message ids we have already acted on.
+--
+-- Twilio's signature covers the URL and the parameters, and nothing else — no
+-- nonce, no timestamp. So a signed request stays valid forever, and anyone who
+-- captures one copy of David's "YES" can replay it: each replay approves the
+-- next post waiting on him, because the handler always takes the oldest. One
+-- observed request would become a standing permission to publish.
+--
+-- Twilio sends a unique MessageSid per message, so recording it and refusing
+-- repeats is what turns a signed request into a single-use one.
+CREATE TABLE IF NOT EXISTS sms_messages_seen (
+    message_sid TEXT PRIMARY KEY,
+    seen_at     TEXT NOT NULL
 );

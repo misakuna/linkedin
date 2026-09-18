@@ -1942,7 +1942,7 @@
               <div class="reply-text">${this.escapeHtml(item.draft_text)}</div>
             </div>
             <div class="card-actions">
-              <button class="btn btn-primary" onclick="app.copyReply(this, \`${this.escapeJs(item.draft_text)}\`)">
+              <button class="btn btn-primary" data-copy-reply="${this.escapeHtml(item.draft_text)}">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                 Copy this reply
               </button>
@@ -2174,13 +2174,12 @@
           .replace(/'/g, '&#039;');
       }
 
-      escapeJs(str) {
-        if (!str) return '';
-        return String(str)
-          .replace(/\\/g, '\\\\')
-          .replace(/`/g, '\\`')
-          .replace(/\${/g, '\\${');
-      }
+      // Deliberately no escapeJs(). Escaping for "JavaScript inside an HTML
+      // attribute" needs the HTML layer and the JS layer to agree, and the
+      // version that lived here escaped backslash, backtick and ${ but not the
+      // double quote that ends the attribute — so a name containing one broke
+      // out and became a live event handler. Values reach handlers through
+      // data-* attributes and .dataset instead, where no such escaping applies.
     }
 
     // Initialize Global App Controller Instance
@@ -2206,6 +2205,16 @@
         pullBar.style.display = 'none';
         app.refresh();
       }
+    });
+
+    // Copy buttons carry their text in data-copy-reply and are wired here,
+    // rather than through an inline onclick built by string concatenation.
+    // Draft text contains whatever a stranger put in their LinkedIn name or
+    // headline, so it must never become part of the markup's syntax — reading
+    // it back through .dataset keeps it data all the way to the clipboard.
+    document.addEventListener('click', (e) => {
+      const button = e.target.closest('[data-copy-reply]');
+      if (button) app.copyReply(button, button.dataset.copyReply);
     });
 
     // Run app initialization on DOM ready

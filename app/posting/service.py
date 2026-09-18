@@ -26,7 +26,7 @@ from app.config import AppConfig
 from app.db import Draft, DraftKind, DraftRepository, DraftStatus, InvalidTransitionError
 from app.logging_setup import get_logger
 from app.posting.drafting import PostDrafter
-from app.posting.publisher import Publisher, build_publisher
+from app.posting.publisher import NotSentError, Publisher, build_publisher
 from app.posting.schedule import is_posting_day, publish_time_for
 
 logger = get_logger(__name__)
@@ -129,11 +129,50 @@ class PostingService:
             )
             return False
 
+        # Claim it before calling out. The status check above is necessary but
+        # not sufficient: the publisher call below can take 30s, and the retry
+        # sweep, the SMS webhook and the dashboard button can all be inside this
+        # method for the same post at once. Whoever wins the claim publishes;
+        # everyone else stops here.
+        if not self._repository.claim_for_publishing(draft_id):
+            logger.info(
+                "Post #%s is already being scheduled by another caller. Leaving it alone.",
+                draft_id,
+            )
+            return False
+
         publish_at = draft.scheduled_for or datetime.now(timezone.utc)
-        receipt = self._publisher.queue(text=draft.body, publish_at=publish_at)
-        if receipt is None:
+        try:
+            receipt = self._publisher.queue(text=draft.body, publish_at=publish_at)
+        except NotSentError:
+            # Nothing reached the publisher, so a retry cannot duplicate
+            # anything. Hand the claim back and let the sweep try again.
+            self._repository.release_publish_claim(draft_id)
             logger.warning(
-                "Post #%s is approved but couldn't be scheduled. It'll be retried.",
+                "Post #%s didn't reach the publisher. It stays approved and will "
+                "be retried.",
+                draft_id,
+            )
+            return False
+        except Exception:
+            # Anything else leaves us unable to say whether the post went out,
+            # so the claim stays held rather than risking a second copy.
+            logger.exception(
+                "Scheduling post #%s failed in a way we can't interpret. It stays "
+                "on David's list rather than being retried automatically.",
+                draft_id,
+            )
+            return False
+        if receipt is None:
+            # The claim stays held on purpose. `queue()` returns None for both
+            # "never reached Buffer" and "Buffer answered but gave us no id",
+            # and from here those look identical — so retrying could post a
+            # second copy. The post stays approved and visible on the dashboard
+            # for David to handle, which beats a duplicate under his name.
+            logger.warning(
+                "Post #%s is approved but couldn't be scheduled, and is not safe to "
+                "retry automatically — it may or may not have reached the publisher. "
+                "It stays on David's list.",
                 draft_id,
             )
             return False

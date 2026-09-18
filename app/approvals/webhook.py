@@ -116,6 +116,29 @@ async def incoming_sms(request: Request) -> Response:
     from_number = params.get("From")
 
     services = request.app.state.services
+
+    # A verified signature says Twilio sent this once. It does not say we are
+    # seeing it for the first time: the signature covers only the URL and the
+    # parameters, so the same bytes verify forever. Since `handle_reply` acts on
+    # whichever post is oldest, a replayed YES would walk the queue and publish
+    # everything waiting. The MessageSid makes each request single-use.
+    message_sid = params.get("MessageSid") or params.get("SmsMessageSid")
+    if not message_sid:
+        logger.warning(
+            "An inbound text verified but carried no MessageSid, so it can't be "
+            "checked for replay. Ignored it."
+        )
+        return Response(status_code=400)
+    if not services.alerts.claim_inbound_message(message_sid):
+        logger.warning(
+            "Ignored a repeat of a text already acted on (MessageSid %s). Twilio "
+            "retries on timeout, so this is usually harmless — but an unexpected "
+            "repeat is what a replayed approval would look like.",
+            message_sid,
+        )
+        # 200 so Twilio stops retrying; the first copy was already handled.
+        return _twiml("Already got that one.")
+
     try:
         outcome = services.approvals.handle_reply(body, from_number=from_number)
         # Deliberately not PostingService.handle_sms_reply: that returns only
